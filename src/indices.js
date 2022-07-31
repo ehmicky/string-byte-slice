@@ -100,6 +100,8 @@ export const byteToChar = function ({
     canBacktrack && byteIndex > targetByteIndex ? previousCharIndex : charIndex
   return finalCharIndex + shift
 }
+/* eslint-enable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
+   fp/no-mutation, no-continue, unicorn/prefer-code-point */
 
 // Last ASCII character (1 byte)
 const LAST_ASCII_CODEPOINT = 0x7f
@@ -113,5 +115,3 @@ const FIRST_LOW_SURROGATE = 0xd8_00
 const LAST_LOW_SURROGATE = 0xdb_ff
 const FIRST_HIGH_SURROGATE = 0xdc_00
 const LAST_HIGH_SURROGATE = 0xdf_ff
-/* eslint-enable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
-   fp/no-mutation, no-continue, unicorn/prefer-code-point */
