@@ -23,7 +23,7 @@ const validateByteEnd = function (byteEnd) {
 }
 
 const validateIndex = function (name, byteIndex) {
-  if (Number.isInteger(byteIndex)) {
+  if (!Number.isInteger(byteIndex)) {
     throw new TypeError(`${name} argument must be an integer: ${byteIndex}`)
   }
 }
