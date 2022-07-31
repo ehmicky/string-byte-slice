@@ -9,6 +9,7 @@ export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
   const firstEndSurrogate = FIRST_LOW_SURROGATE
   const lastEndSurrogate = LAST_LOW_SURROGATE
   const increment = -1
+  const canBacktrack = !isEnd
   let charIndex = string.length - 1
   let previousCharIndex = charIndex
   let byteIndex = 0
@@ -56,7 +57,9 @@ export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
   }
 
   return (
-    (!isEnd && byteIndex > targetByteIndex ? previousCharIndex : charIndex) + 1
+    (canBacktrack && byteIndex > targetByteIndex
+      ? previousCharIndex
+      : charIndex) + 1
   )
 }
 

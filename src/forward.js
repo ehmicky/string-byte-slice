@@ -9,6 +9,7 @@ export const byteToCharForward = function (string, targetByteIndex, isEnd) {
   const firstEndSurrogate = FIRST_HIGH_SURROGATE
   const lastEndSurrogate = LAST_HIGH_SURROGATE
   const increment = 1
+  const canBacktrack = isEnd
   let charIndex = 0
   let previousCharIndex = charIndex
   let byteIndex = 0
@@ -55,7 +56,9 @@ export const byteToCharForward = function (string, targetByteIndex, isEnd) {
     charIndex += increment
   }
 
-  return isEnd && byteIndex > targetByteIndex ? previousCharIndex : charIndex
+  return canBacktrack && byteIndex > targetByteIndex
+    ? previousCharIndex
+    : charIndex
 }
 
 // Last ASCII character (1 byte)
