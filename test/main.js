@@ -25,6 +25,7 @@ each(
 
     // Empty string
     ['', '', 0],
+    ['', '', 1, 3],
 
     // 2-bytes characters
     ['\u00B1a', '\u00B1a', 0],
