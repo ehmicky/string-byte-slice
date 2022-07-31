@@ -4,10 +4,14 @@
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
 export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
+  const firstStartSurrogate = FIRST_HIGH_SURROGATE
+  const lastStartSurrogate = LAST_HIGH_SURROGATE
+  const firstEndSurrogate = FIRST_LOW_SURROGATE
+  const lastEndSurrogate = LAST_LOW_SURROGATE
+  const increment = -1
   let charIndex = string.length - 1
   let previousCharIndex = charIndex
   let byteIndex = 0
-  const increment = -1
 
   for (; byteIndex < targetByteIndex; charIndex += increment) {
     previousCharIndex = charIndex
@@ -29,7 +33,7 @@ export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
 
     byteIndex += 3
 
-    if (codepoint < FIRST_HIGH_SURROGATE || codepoint > LAST_HIGH_SURROGATE) {
+    if (codepoint < firstStartSurrogate || codepoint > lastStartSurrogate) {
       continue
     }
 
@@ -41,8 +45,8 @@ export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
     // though.
     if (
       Number.isNaN(nextCodepoint) ||
-      nextCodepoint < FIRST_LOW_SURROGATE ||
-      nextCodepoint > LAST_LOW_SURROGATE
+      nextCodepoint < firstEndSurrogate ||
+      nextCodepoint > lastEndSurrogate
     ) {
       continue
     }
