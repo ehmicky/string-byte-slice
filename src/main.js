@@ -1,6 +1,7 @@
 import { byteToChar } from './direction.js'
 import { validateInput } from './validate.js'
 
+// Like `string.slice()` but bytewise
 export default function stringByteSlice(string, byteStart, byteEnd) {
   validateInput(string, byteStart, byteEnd)
 
