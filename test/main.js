@@ -36,6 +36,18 @@ each(
     ['a\u00B1', 'a', 0, 2],
     ['a\u00B1', 'a', 0, 1],
     ['a\u00B1', '', 0, 0],
+
+    // 3-bytes characters
+    ['\u25CAa', '\u25CAa', 0],
+    ['\u25CAa', 'a', 1],
+    ['\u25CAa', 'a', 2],
+    ['\u25CAa', 'a', 3],
+    ['\u25CAa', '', 4],
+    ['a\u25CA', 'a\u25CA', 0, 4],
+    ['a\u25CA', 'a', 0, 3],
+    ['a\u25CA', 'a', 0, 2],
+    ['a\u25CA', 'a', 0, 1],
+    ['a\u25CA', '', 0, 0],
   ],
   /* eslint-enable no-magic-numbers */
   ({ title }, [input, output, byteStart, byteEnd]) => {
