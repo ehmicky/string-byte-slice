@@ -1,17 +1,56 @@
+// Convert positive byteIndex argument to a charIndex
+export const byteToCharForward = function (string, targetByteIndex, isEnd) {
+  return byteToChar({
+    string,
+    targetByteIndex,
+    firstStartSurrogate: FIRST_LOW_SURROGATE,
+    lastStartSurrogate: LAST_LOW_SURROGATE,
+    firstEndSurrogate: FIRST_HIGH_SURROGATE,
+    lastEndSurrogate: LAST_HIGH_SURROGATE,
+    increment: 1,
+    canBacktrack: isEnd,
+    shift: 0,
+    charIndexInit: 0,
+  })
+}
+
+// Convert negative byteIndex argument to a charIndex
+export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
+  return byteToChar({
+    string,
+    targetByteIndex,
+    firstStartSurrogate: FIRST_HIGH_SURROGATE,
+    lastStartSurrogate: LAST_HIGH_SURROGATE,
+    firstEndSurrogate: FIRST_LOW_SURROGATE,
+    lastEndSurrogate: LAST_LOW_SURROGATE,
+    increment: -1,
+    canBacktrack: !isEnd,
+    shift: 1,
+    charIndexInit: string.length - 1,
+  })
+}
+
+// Find the character index where to slice the string based on the amount of
+// bytes passed as argument.
+// Works both forward|backward for positive|negative arguments.
 // If the slice leaves some character partially cut, those are omitted.
 // Uses `string.charCodeAt()` over `String.codePointAt()` because it is faster.
 // Uses imperative code for performance.
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
-export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
-  const firstStartSurrogate = FIRST_HIGH_SURROGATE
-  const lastStartSurrogate = LAST_HIGH_SURROGATE
-  const firstEndSurrogate = FIRST_LOW_SURROGATE
-  const lastEndSurrogate = LAST_LOW_SURROGATE
-  const increment = -1
-  const canBacktrack = !isEnd
-  const shift = 1
-  let charIndex = string.length - 1
+export const byteToChar = function ({
+  string,
+  targetByteIndex,
+  firstStartSurrogate,
+  lastStartSurrogate,
+  firstEndSurrogate,
+  lastEndSurrogate,
+  increment,
+  canBacktrack,
+  shift,
+  charIndexInit,
+}) {
+  let charIndex = charIndexInit
   let previousCharIndex = charIndex
   let byteIndex = 0
 
