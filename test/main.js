@@ -37,7 +37,7 @@ each(
     ['a\u00B1', 'a', 0, 1],
     ['a\u00B1', '', 0, 0],
 
-    // 3-bytes characters
+    // 3-bytes characters (before surrogates)
     ['\u25CAa', '\u25CAa', 0],
     ['\u25CAa', 'a', 1],
     ['\u25CAa', 'a', 2],
@@ -48,6 +48,32 @@ each(
     ['a\u25CA', 'a', 0, 2],
     ['a\u25CA', 'a', 0, 1],
     ['a\u25CA', '', 0, 0],
+
+    // 3-bytes characters (after surrogates)
+    ['\uFB00a', '\uFB00a', 0],
+    ['\uFB00a', 'a', 1],
+    ['\uFB00a', 'a', 2],
+    ['\uFB00a', 'a', 3],
+    ['\uFB00a', '', 4],
+    ['a\uFB00', 'a\uFB00', 0, 4],
+    ['a\uFB00', 'a', 0, 3],
+    ['a\uFB00', 'a', 0, 2],
+    ['a\uFB00', 'a', 0, 1],
+    ['a\uFB00', '', 0, 0],
+
+    // 4-bytes characters
+    ['\u{1F525}a', '\u{1F525}a', 0],
+    ['\u{1F525}a', 'a', 1],
+    ['\u{1F525}a', 'a', 2],
+    ['\u{1F525}a', 'a', 3],
+    ['\u{1F525}a', 'a', 4],
+    ['\u{1F525}a', '', 5],
+    ['a\u{1F525}', 'a\u{1F525}', 0, 5],
+    ['a\u{1F525}', 'a', 0, 4],
+    ['a\u{1F525}', 'a', 0, 3],
+    ['a\u{1F525}', 'a', 0, 2],
+    ['a\u{1F525}', 'a', 0, 1],
+    ['a\u{1F525}', '', 0, 0],
   ],
   /* eslint-enable no-magic-numbers */
   ({ title }, [input, output, byteStart, byteEnd]) => {

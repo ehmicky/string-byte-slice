@@ -4,6 +4,7 @@
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
 export const byteToCharForward = function (string, targetByteIndex, isStart) {
   const charLength = string.length
+  let previousCharIndex = 0
   let charIndex = 0
   let byteIndex = 0
 
@@ -12,6 +13,7 @@ export const byteToCharForward = function (string, targetByteIndex, isStart) {
     byteIndex < targetByteIndex && charIndex < charLength;
     charIndex += 1
   ) {
+    previousCharIndex = charIndex
     const codepoint = string.charCodeAt(charIndex)
 
     if (codepoint <= LAST_ASCII_CODEPOINT) {
@@ -49,7 +51,7 @@ export const byteToCharForward = function (string, targetByteIndex, isStart) {
     charIndex += 1
   }
 
-  return isStart || byteIndex <= targetByteIndex ? charIndex : charIndex - 1
+  return isStart || byteIndex <= targetByteIndex ? charIndex : previousCharIndex
 }
 
 // Last ASCII character (1 byte)
