@@ -2,17 +2,13 @@
 // Uses imperative code for performance.
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
-export const byteToCharForward = function (string, targetByteIndex, isEnd) {
+export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
   const charLength = string.length
-  let charIndex = 0
+  let charIndex = charLength - 1
   let previousCharIndex = charIndex
   let byteIndex = 0
 
-  for (
-    ;
-    byteIndex < targetByteIndex && charIndex < charLength;
-    charIndex += 1
-  ) {
+  for (; byteIndex < targetByteIndex && charIndex >= 0; charIndex -= 1) {
     previousCharIndex = charIndex
     const codepoint = string.charCodeAt(charIndex)
 
@@ -28,11 +24,11 @@ export const byteToCharForward = function (string, targetByteIndex, isEnd) {
 
     byteIndex += 3
 
-    if (codepoint < FIRST_LOW_SURROGATE || codepoint > LAST_LOW_SURROGATE) {
+    if (codepoint < FIRST_HIGH_SURROGATE || codepoint > LAST_HIGH_SURROGATE) {
       continue
     }
 
-    const nextCodepoint = string.charCodeAt(charIndex + 1)
+    const nextCodepoint = string.charCodeAt(charIndex - 1)
 
     // Low surrogates should be followed by high surrogates.
     // However, JavaScript strings allow invalid surrogates, which are counted
@@ -40,17 +36,19 @@ export const byteToCharForward = function (string, targetByteIndex, isEnd) {
     // though.
     if (
       Number.isNaN(nextCodepoint) ||
-      nextCodepoint < FIRST_HIGH_SURROGATE ||
-      nextCodepoint > LAST_HIGH_SURROGATE
+      nextCodepoint < FIRST_LOW_SURROGATE ||
+      nextCodepoint > LAST_LOW_SURROGATE
     ) {
       continue
     }
 
     byteIndex += 1
-    charIndex += 1
+    charIndex -= 1
   }
 
-  return isEnd && byteIndex > targetByteIndex ? previousCharIndex : charIndex
+  return (
+    (!isEnd && byteIndex > targetByteIndex ? previousCharIndex : charIndex) + 1
+  )
 }
 
 // Last ASCII character (1 byte)

@@ -1,3 +1,4 @@
+import { byteToCharBackward } from './backward.js'
 import { byteToCharForward } from './forward.js'
 import { validateInput } from './validate.js'
 
@@ -27,10 +28,6 @@ const getByteEnd = function (string, byteEnd) {
 // `-0` should be handled the same as `+0` to mimic `string.slice()`
 const byteToChar = function (string, byteIndex, isStart) {
   return byteIndex < 0
-    ? byteToCharBackward(string, byteIndex, isStart)
+    ? byteToCharBackward(string, -byteIndex, isStart)
     : byteToCharForward(string, byteIndex, isStart)
-}
-
-const byteToCharBackward = function (string, byteIndex) {
-  return Math.max(string.length + byteIndex, 0)
 }
