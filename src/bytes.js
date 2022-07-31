@@ -1,28 +1,28 @@
 // Normalize byte start index
-export const getByteStart = function (buffer, byteStart) {
-  const byteStartA = convertNegativeIndex(buffer, byteStart)
-  return findByteStart(buffer, byteStartA)
+export const getByteStart = function (buffer, bufferLength, byteStart) {
+  const byteStartA = convertNegativeIndex(bufferLength, byteStart)
+  return findByteStart(buffer, bufferLength, byteStartA)
 }
 
 // If the slice starts in the middle of a multibyte sequence, we trim it.
-const findByteStart = function (buffer, byteStart) {
-  if (byteStart >= buffer.length) {
+const findByteStart = function (buffer, bufferLength, byteStart) {
+  if (byteStart >= bufferLength) {
     return byteStart
   }
 
   const byte = buffer[byteStart]
   return byte >= NEXT_BYTES_START && byte <= NEXT_BYTES_END
-    ? findByteStart(buffer, byteStart + 1)
+    ? findByteStart(buffer, bufferLength, byteStart + 1)
     : byteStart
 }
 
 // Normalize byte end index
-export const getByteEnd = function (buffer, byteEnd) {
+export const getByteEnd = function (buffer, bufferLength, byteEnd) {
   if (byteEnd === undefined) {
     return byteEnd
   }
 
-  const byteEndA = convertNegativeIndex(buffer, byteEnd)
+  const byteEndA = convertNegativeIndex(bufferLength, byteEnd)
   return findByteEnd(buffer, byteEndA)
 }
 
@@ -59,9 +59,9 @@ const isInvalid2Sequence = function (buffer, byteEnd) {
   return byteEnd >= 1 && buffer[byteEnd - 1] >= FIRST_BYTE_2_START
 }
 
-const convertNegativeIndex = function (buffer, byteIndex) {
+const convertNegativeIndex = function (bufferLength, byteIndex) {
   return byteIndex < 0 || Object.is(byteIndex, -0)
-    ? Math.max(buffer.length + byteIndex, 0)
+    ? Math.max(bufferLength + byteIndex, 0)
     : byteIndex
 }
 

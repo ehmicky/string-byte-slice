@@ -13,7 +13,7 @@ export const stringByteSliceBuffer = function (string, byteStart, byteEnd) {
   }
 
   const buffer = Buffer.from(string)
-  const byteStartA = getByteStart(buffer, byteStart)
-  const byteEndA = getByteEnd(buffer, byteEnd)
+  const byteStartA = getByteStart(buffer, buffer.length, byteStart)
+  const byteEndA = getByteEnd(buffer, buffer.length, byteEnd)
   return buffer.toString('utf8', byteStartA, byteEndA)
 }
