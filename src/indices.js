@@ -1,12 +1,11 @@
 // Uses `string.charCodeAt()` over `String.codePointAt()` because it is faster.
 // Uses imperative code for performance.
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
-   fp/no-mutation, no-magic-numbers, unicorn/prefer-code-point */
+   fp/no-mutation, no-continue, unicorn/prefer-code-point */
 export const byteToCharForward = function (string, targetByteIndex, isStart) {
   const charLength = string.length
   let charIndex = 0
   let byteIndex = 0
-  let hasSurrogate = false
 
   for (
     ;
@@ -15,39 +14,54 @@ export const byteToCharForward = function (string, targetByteIndex, isStart) {
   ) {
     const codepoint = string.charCodeAt(charIndex)
 
-    // ASCII characters -> 1 byte
-    if (codepoint < 0x80) {
+    if (codepoint <= LAST_ASCII_CODEPOINT) {
       byteIndex += 1
-      hasSurrogate = false
-      // U+0080 to U+07ff -> 2 bytes
-    } else if (codepoint < 0x8_00) {
+      continue
+    }
+
+    if (codepoint <= LAST_TWO_BYTES_CODEPOINT) {
       byteIndex += 2
-      hasSurrogate = false
-      // Astral character
-    } else if (hasSurrogate && codepoint >= 0xdc_00 && codepoint <= 0xdf_ff) {
-      byteIndex += 1
-      hasSurrogate = false
-      // U+0800 to U+ffff -> 3 bytes
-      // However, U+d800 to U+dbff:
-      //  - Followed by U+dc00 to U+dfff -> 4 bytes together (astral character)
-      //  - Otherwise -> 3 bytes (like above)
-    } else {
-      byteIndex += 3
-      hasSurrogate = codepoint >= 0xd8_00 && codepoint <= 0xdb_ff
+      continue
     }
-  }
 
-  if (charIndex < charLength) {
-    const nextCodePoint = string.charCodeAt(charIndex + 1)
+    byteIndex += 3
 
-    if (hasSurrogate && nextCodePoint >= 0xdc_00 && nextCodePoint <= 0xdf_ff) {
-      byteIndex += 1
-      charIndex += 1
-      hasSurrogate = false
+    if (codepoint < FIRST_LOW_SURROGATE || codepoint > LAST_LOW_SURROGATE) {
+      continue
     }
+
+    // When out-of-bound, this returns NaN, which is `false` with the
+    // next condition
+    const nextCodepoint = string.charCodeAt(charIndex + 1)
+
+    // Low surrogates should be followed by high surrogates.
+    // However, JavaScript strings allow invalid surrogates, which are counted
+    // as a normal 3-byte character. This should not happen often in real code
+    // though.
+    if (
+      nextCodepoint < FIRST_HIGH_SURROGATE ||
+      nextCodepoint > LAST_HIGH_SURROGATE
+    ) {
+      continue
+    }
+
+    charIndex += 1
   }
 
   return isStart || byteIndex <= targetByteIndex ? charIndex : charIndex - 1
 }
+
+// Last ASCII character (1 byte)
+const LAST_ASCII_CODEPOINT = 0x7f
+// Last 2-bytes character
+const LAST_TWO_BYTES_CODEPOINT = 0x7_ff
+// Others are 3 bytes characters
+// However, U+d800 to U+dbff:
+//  - Followed by U+dc00 to U+dfff -> 4 bytes together (astral character)
+//  - Otherwise -> 3 bytes (like above)
+const FIRST_LOW_SURROGATE = 0xd8_00
+const LAST_LOW_SURROGATE = 0xdb_ff
+const FIRST_HIGH_SURROGATE = 0xdc_00
+const LAST_HIGH_SURROGATE = 0xdf_ff
 /* eslint-enable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
-   fp/no-mutation, no-magic-numbers, unicorn/prefer-code-point */
+   fp/no-mutation, no-continue, unicorn/prefer-code-point */
