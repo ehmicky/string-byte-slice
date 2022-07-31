@@ -45,6 +45,7 @@ export const byteToCharForward = function (string, targetByteIndex, isStart) {
       continue
     }
 
+    byteIndex += 1
     charIndex += 1
   }
 
