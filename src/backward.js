@@ -4,19 +4,18 @@
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
 export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
-  const charLength = string.length
-  let charIndex = charLength - 1
+  let charIndex = string.length - 1
   let previousCharIndex = charIndex
   let byteIndex = 0
   const increment = -1
 
-  for (
-    ;
-    byteIndex < targetByteIndex && charIndex >= 0;
-    charIndex += increment
-  ) {
+  for (; byteIndex < targetByteIndex; charIndex += increment) {
     previousCharIndex = charIndex
     const codepoint = string.charCodeAt(charIndex)
+
+    if (Number.isNaN(codepoint)) {
+      break
+    }
 
     if (codepoint <= LAST_ASCII_CODEPOINT) {
       byteIndex += 1
