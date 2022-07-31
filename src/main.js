@@ -1,4 +1,4 @@
-import { byteToCharForward, byteToCharBackward } from './backward.js'
+import { byteToCharForward, byteToCharBackward } from './indices.js'
 import { validateInput } from './validate.js'
 
 export default function stringByteSlice(string, byteStart, byteEnd) {
