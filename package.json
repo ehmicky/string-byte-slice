@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^1.0.84",
+    "string-byte-length": "^1.1.0",
     "test-each": "^5.1.1"
   },
   "engines": {
