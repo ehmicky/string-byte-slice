@@ -23,5 +23,5 @@ const byteToCharForward = function (string, byteIndex) {
 }
 
 const byteToCharBackward = function (string, byteIndex) {
-  return Math.max(string.length - byteIndex, 0)
+  return Math.max(string.length + byteIndex, 0)
 }
