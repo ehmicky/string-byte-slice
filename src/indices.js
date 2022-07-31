@@ -96,11 +96,9 @@ export const byteToChar = function ({
     charIndex += increment
   }
 
-  return (
-    (canBacktrack && byteIndex > targetByteIndex
-      ? previousCharIndex
-      : charIndex) + shift
-  )
+  const finalCharIndex =
+    canBacktrack && byteIndex > targetByteIndex ? previousCharIndex : charIndex
+  return finalCharIndex + shift
 }
 
 // Last ASCII character (1 byte)
