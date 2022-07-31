@@ -5,6 +5,8 @@ import stringByteSlice from 'string-byte-slice'
 import { each } from 'test-each'
 
 each(
+  [true, false],
+  [true, false],
   /* eslint-disable no-magic-numbers */
   [
     // Normal positive|negative indices
@@ -95,40 +97,29 @@ each(
     ['a\u{1F525}', '', 0, 0],
   ],
   /* eslint-enable no-magic-numbers */
-  ({ title }, [input, output, byteStart, byteEnd]) => {
-    test(`String slice positive-positive | ${title}`, (t) => {
-      t.is(stringByteSlice(input, byteStart, byteEnd), output)
-    })
-
-    test(`String slice positive-negative | ${title}`, (t) => {
-      t.is(
-        stringByteSlice(input, byteStart, getNegativeIndex(input, byteEnd)),
-        output,
-      )
-    })
-
-    test(`String slice negative-positive | ${title}`, (t) => {
-      t.is(
-        stringByteSlice(input, getNegativeIndex(input, byteStart), byteEnd),
-        output,
-      )
-    })
-
-    test(`String slice negative-negative | ${title}`, (t) => {
-      t.is(
-        stringByteSlice(
-          input,
-          getNegativeIndex(input, byteStart),
-          getNegativeIndex(input, byteEnd),
-        ),
-        output,
-      )
+  /* eslint-disable max-params */
+  (
+    { title },
+    negativeStart,
+    negativeEnd,
+    [input, output, byteStart, byteEnd],
+  ) => {
+    /* eslint-enable max-params */
+    test(`String slice | ${title}`, (t) => {
+      const byteStartA = getByteIndex(input, byteStart, negativeStart)
+      const byteEndA = getByteIndex(input, byteEnd, negativeEnd)
+      t.is(stringByteSlice(input, byteStartA, byteEndA), output)
     })
   },
 )
 
-// Works with -0
-const getNegativeIndex = function (input, byteIndex) {
+// Iterate all tests using either positive or negative indices.
+// Works with -0 index.
+const getByteIndex = function (input, byteIndex, isNegative) {
+  if (!isNegative) {
+    return byteIndex
+  }
+
   return byteIndex === undefined
     ? -0
     : -Math.max(stringByteLength(input) - byteIndex, 0)
