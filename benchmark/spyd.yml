@@ -1,13 +1,15 @@
 precision: 5
 reporter: debug
 inputs:
-  character: ascii
-  slice: small
-  size: 1e2
+  character: normal
+  slice: medium
+  size: 1e4
   # TODO: enable inputs variations
   # character:
-  #   ascii: ascii
-  #   unicode: unicode
+  #   simple: simple
+  #   low: low
+  #   normal: normal
+  #   complex: complex
   # slice:
   #   small: small
   #   medium: medium
@@ -28,8 +30,10 @@ titles:
   bufferFrom: Buffer.from()
   textEncoder: TextEncoder
   # TODO: add titles of inputs variations
-  # ascii: Only ASCII
-  # unicode: Only non-ASCII
+  # simple: Only ASCII
+  # low: Mostly ASCII, very few non-ASCII
+  # normal: Mostly ASCII, some non-ASCII
+  # complex: Only non-ASCII
   # small: Small slice
   # medium: Medium slice
   # large: Large slice
