@@ -1,3 +1,4 @@
+// If the slice leaves some character partially cut, those are omitted.
 // Uses `string.charCodeAt()` over `String.codePointAt()` because it is faster.
 // Uses imperative code for performance.
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
@@ -7,8 +8,13 @@ export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
   let charIndex = charLength - 1
   let previousCharIndex = charIndex
   let byteIndex = 0
+  const increment = -1
 
-  for (; byteIndex < targetByteIndex && charIndex >= 0; charIndex -= 1) {
+  for (
+    ;
+    byteIndex < targetByteIndex && charIndex >= 0;
+    charIndex += increment
+  ) {
     previousCharIndex = charIndex
     const codepoint = string.charCodeAt(charIndex)
 
@@ -28,7 +34,7 @@ export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
       continue
     }
 
-    const nextCodepoint = string.charCodeAt(charIndex - 1)
+    const nextCodepoint = string.charCodeAt(charIndex + increment)
 
     // Low surrogates should be followed by high surrogates.
     // However, JavaScript strings allow invalid surrogates, which are counted
@@ -43,7 +49,7 @@ export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
     }
 
     byteIndex += 1
-    charIndex -= 1
+    charIndex += increment
   }
 
   return (
