@@ -14,6 +14,8 @@ each(
     { input: 'abcd', output: 'abcd', byteStart: -10 },
     { input: 'abcd', output: 'abcd', byteStart: 0, byteEnd: 10 },
     { input: '', output: '', byteStart: 0 },
+    { input: '\u0080bc\u0080', output: 'bc', byteStart: 1, byteEnd: 4 },
+    { input: '\u0080bc\u0080', output: 'bc', byteStart: 2, byteEnd: 4 },
   ],
   ({ title }, { input, output, byteStart, byteEnd }) => {
     test(`String slice | ${title}`, (t) => {

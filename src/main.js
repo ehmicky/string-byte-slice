@@ -1,25 +1,27 @@
+import { byteToCharForward } from './indices.js'
 import { validateInput } from './validate.js'
 
 export default function stringByteSlice(string, byteStart, byteEnd) {
   validateInput(string, byteStart, byteEnd)
-  const charStart = byteToChar(string, byteStart)
+  const charStart = byteToChar(string, byteStart, true)
   const charEnd = getByteEnd(string, byteEnd)
   return string.slice(charStart, charEnd)
 }
 
 const getByteEnd = function (string, byteEnd) {
-  return byteEnd === undefined ? byteEnd : byteToChar(string, byteEnd)
+  if (byteEnd === undefined) {
+    return byteEnd
+  }
+
+  const charEnd = byteToChar(string, byteEnd, false)
+  return charEnd === string.length ? undefined : charEnd
 }
 
 // `-0` should be handled the same as `+0` to mimic `string.slice()`
-const byteToChar = function (string, byteIndex) {
+const byteToChar = function (string, byteIndex, isStart) {
   return byteIndex < 0
-    ? byteToCharBackward(string, byteIndex)
-    : byteToCharForward(string, byteIndex)
-}
-
-const byteToCharForward = function (string, byteIndex) {
-  return byteIndex
+    ? byteToCharBackward(string, byteIndex, isStart)
+    : byteToCharForward(string, byteIndex, isStart)
 }
 
 const byteToCharBackward = function (string, byteIndex) {
