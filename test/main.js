@@ -6,11 +6,14 @@ each(
   [
     { input: 'abcd', output: 'bc', byteStart: 1, byteEnd: 3 },
     { input: 'abcd', output: 'bc', byteStart: 1, byteEnd: -1 },
+    { input: 'abcd', output: 'bc', byteStart: -3, byteEnd: 3 },
+    { input: 'abcd', output: 'bc', byteStart: -3, byteEnd: -1 },
     { input: 'abcd', output: 'bcd', byteStart: 1 },
     { input: 'abcd', output: '', byteStart: 10 },
     { input: 'abcd', output: '', byteStart: 0, byteEnd: -10 },
     { input: 'abcd', output: 'abcd', byteStart: -10 },
     { input: 'abcd', output: 'abcd', byteStart: 0, byteEnd: 10 },
+    { input: '', output: '', byteStart: 0 },
   ],
   ({ title }, { input, output, byteStart, byteEnd }) => {
     test(`String slice | ${title}`, (t) => {
