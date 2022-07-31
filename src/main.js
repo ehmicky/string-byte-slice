@@ -28,6 +28,6 @@ const getByteEnd = function (string, byteEnd) {
 // more useful
 const byteToChar = function (string, byteIndex, isStart) {
   return byteIndex < 0 || Object.is(byteIndex, -0)
-    ? byteToCharBackward(string, -byteIndex, isStart)
+    ? byteToCharBackward(string, byteIndex, isStart)
     : byteToCharForward(string, byteIndex, isStart)
 }

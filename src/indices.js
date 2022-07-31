@@ -1,8 +1,8 @@
 // Convert positive byteIndex argument to a charIndex
-export const byteToCharForward = function (string, targetByteIndex, isEnd) {
+export const byteToCharForward = function (string, byteIndex, isEnd) {
   return byteToChar({
     string,
-    targetByteIndex,
+    targetByteCount: byteIndex,
     firstStartSurrogate: FIRST_LOW_SURROGATE,
     lastStartSurrogate: LAST_LOW_SURROGATE,
     firstEndSurrogate: FIRST_HIGH_SURROGATE,
@@ -15,10 +15,10 @@ export const byteToCharForward = function (string, targetByteIndex, isEnd) {
 }
 
 // Convert negative byteIndex argument to a charIndex
-export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
+export const byteToCharBackward = function (string, byteIndex, isEnd) {
   return byteToChar({
     string,
-    targetByteIndex,
+    targetByteCount: -byteIndex,
     firstStartSurrogate: FIRST_HIGH_SURROGATE,
     lastStartSurrogate: LAST_HIGH_SURROGATE,
     firstEndSurrogate: FIRST_LOW_SURROGATE,
@@ -38,9 +38,9 @@ export const byteToCharBackward = function (string, targetByteIndex, isEnd) {
 // Uses imperative code for performance.
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
-export const byteToChar = function ({
+const byteToChar = function ({
   string,
-  targetByteIndex,
+  targetByteCount,
   firstStartSurrogate,
   lastStartSurrogate,
   firstEndSurrogate,
@@ -52,9 +52,9 @@ export const byteToChar = function ({
 }) {
   let charIndex = charIndexInit
   let previousCharIndex = charIndex
-  let byteIndex = 0
+  let byteCount = 0
 
-  for (; byteIndex < targetByteIndex; charIndex += increment) {
+  for (; byteCount < targetByteCount; charIndex += increment) {
     previousCharIndex = charIndex
     const codepoint = string.charCodeAt(charIndex)
 
@@ -63,16 +63,16 @@ export const byteToChar = function ({
     }
 
     if (codepoint <= LAST_ASCII_CODEPOINT) {
-      byteIndex += 1
+      byteCount += 1
       continue
     }
 
     if (codepoint <= LAST_TWO_BYTES_CODEPOINT) {
-      byteIndex += 2
+      byteCount += 2
       continue
     }
 
-    byteIndex += 3
+    byteCount += 3
 
     if (codepoint < firstStartSurrogate || codepoint > lastStartSurrogate) {
       continue
@@ -92,12 +92,12 @@ export const byteToChar = function ({
       continue
     }
 
-    byteIndex += 1
+    byteCount += 1
     charIndex += increment
   }
 
   const finalCharIndex =
-    canBacktrack && byteIndex > targetByteIndex ? previousCharIndex : charIndex
+    canBacktrack && byteCount > targetByteCount ? previousCharIndex : charIndex
   return finalCharIndex + shift
 }
 /* eslint-enable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
