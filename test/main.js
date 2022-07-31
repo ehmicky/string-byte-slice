@@ -5,9 +5,11 @@ import { each } from 'test-each'
 each(
   /* eslint-disable no-magic-numbers */
   [
-    // Normal positive indices
+    // Normal positive|negative indices
     ['abcd', 'bcd', 1],
-    ['abc', 'abc', 0, 3],
+    ['abcd', 'bcd', -3],
+    ['abcd', 'abc', 0, 3],
+    ['abcd', 'abc', 0, -1],
 
     // Mix of positive|negative indices
     ['abcd', 'bc', 1, 3],
