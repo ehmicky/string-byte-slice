@@ -3,6 +3,11 @@ import { validateInput } from './validate.js'
 
 export default function stringByteSlice(string, byteStart, byteEnd) {
   validateInput(string, byteStart, byteEnd)
+
+  if (string === '') {
+    return ''
+  }
+
   const charStart = byteToChar(string, byteStart, true)
   const charEnd = getByteEnd(string, byteEnd)
   return string.slice(charStart, charEnd)
