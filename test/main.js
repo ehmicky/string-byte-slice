@@ -73,6 +73,18 @@ each(
     ['a\uD800', 'a', 0, 1],
     ['a\uD800', '', 0, 0],
 
+    // Isolated high surrogate
+    ['\uDC00\uFB00', '\uDC00\uFB00', 0],
+    ['\uDC00\uFB00', '\uFB00', 1],
+    ['\uDC00\uFB00', '\uFB00', 2],
+    ['\uDC00\uFB00', '\uFB00', 3],
+    ['\uDC00\uFB00', '', 4],
+    ['\uFB00\uDC00', '\uFB00\uDC00', 0, 6],
+    ['\uFB00\uDC00', '\uFB00', 0, 5],
+    ['\uFB00\uDC00', '\uFB00', 0, 4],
+    ['\uFB00\uDC00', '\uFB00', 0, 3],
+    ['\uFB00\uDC00', '', 0, 2],
+
     // Astral characters
     ['\u{1F525}a', '\u{1F525}a', 0],
     ['\u{1F525}a', 'a', 1],
