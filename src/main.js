@@ -8,7 +8,7 @@ export default function stringByteSlice(string, byteStart, byteEnd) {
     return ''
   }
 
-  const charStart = byteToChar(string, byteStart, true)
+  const charStart = byteToChar(string, byteStart, false)
   const charEnd = getByteEnd(string, byteEnd)
   return charStart === 0 && charEnd === undefined
     ? string
@@ -20,7 +20,7 @@ const getByteEnd = function (string, byteEnd) {
     return byteEnd
   }
 
-  const charEnd = byteToChar(string, byteEnd, false)
+  const charEnd = byteToChar(string, byteEnd, true)
   return charEnd === string.length ? undefined : charEnd
 }
 

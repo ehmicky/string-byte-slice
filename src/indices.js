@@ -2,7 +2,7 @@
 // Uses imperative code for performance.
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
-export const byteToCharForward = function (string, targetByteIndex, isStart) {
+export const byteToCharForward = function (string, targetByteIndex, isEnd) {
   const charLength = string.length
   let previousCharIndex = 0
   let charIndex = 0
@@ -51,7 +51,7 @@ export const byteToCharForward = function (string, targetByteIndex, isStart) {
     charIndex += 1
   }
 
-  return isStart || byteIndex <= targetByteIndex ? charIndex : previousCharIndex
+  return isEnd && byteIndex > targetByteIndex ? previousCharIndex : charIndex
 }
 
 // Last ASCII character (1 byte)
