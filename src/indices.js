@@ -1,6 +1,14 @@
+// Unlike `string.slice()`, `-0` is not handled the same as `+0` since it is
+// more useful
+export const byteToChar = function (string, byteIndex, isStart) {
+  return byteIndex < 0 || Object.is(byteIndex, -0)
+    ? byteToCharBackward(string, byteIndex, isStart)
+    : byteToCharForward(string, byteIndex, isStart)
+}
+
 // Convert positive byteIndex argument to a charIndex
-export const byteToCharForward = function (string, byteIndex, isEnd) {
-  return byteToChar({
+const byteToCharForward = function (string, byteIndex, isEnd) {
+  return findCharIndex({
     string,
     targetByteCount: byteIndex,
     firstStartSurrogate: FIRST_LOW_SURROGATE,
@@ -15,8 +23,8 @@ export const byteToCharForward = function (string, byteIndex, isEnd) {
 }
 
 // Convert negative byteIndex argument to a charIndex
-export const byteToCharBackward = function (string, byteIndex, isEnd) {
-  return byteToChar({
+const byteToCharBackward = function (string, byteIndex, isEnd) {
+  return findCharIndex({
     string,
     targetByteCount: -byteIndex,
     firstStartSurrogate: FIRST_HIGH_SURROGATE,
@@ -38,7 +46,7 @@ export const byteToCharBackward = function (string, byteIndex, isEnd) {
 // Uses imperative code for performance.
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
-const byteToChar = function ({
+const findCharIndex = function ({
   string,
   targetByteCount,
   firstStartSurrogate,
