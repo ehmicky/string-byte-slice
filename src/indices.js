@@ -32,8 +32,6 @@ export const byteToCharForward = function (string, targetByteIndex, isEnd) {
       continue
     }
 
-    // When out-of-bound, this returns NaN, which is `false` with the
-    // next condition
     const nextCodepoint = string.charCodeAt(charIndex + 1)
 
     // Low surrogates should be followed by high surrogates.
@@ -41,6 +39,7 @@ export const byteToCharForward = function (string, targetByteIndex, isEnd) {
     // as a normal 3-byte character. This should not happen often in real code
     // though.
     if (
+      Number.isNaN(nextCodepoint) ||
       nextCodepoint < FIRST_HIGH_SURROGATE ||
       nextCodepoint > LAST_HIGH_SURROGATE
     ) {
