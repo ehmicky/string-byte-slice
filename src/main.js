@@ -25,9 +25,10 @@ const getByteEnd = function (string, byteEnd) {
   return charEnd === string.length ? undefined : charEnd
 }
 
-// `-0` should be handled the same as `+0` to mimic `string.slice()`
+// Unlike `string.slice()`, `-0` is not handled the same as `+0` since it is
+// more useful
 const byteToChar = function (string, byteIndex, isStart) {
-  return byteIndex < 0
+  return byteIndex < 0 || Object.is(byteIndex, -0)
     ? byteToCharBackward(string, -byteIndex, isStart)
     : byteToCharForward(string, byteIndex, isStart)
 }
