@@ -1,5 +1,5 @@
 /**
- * `template-name` options
+ * `string-byte-slice` options
  */
 export interface Options {}
 
@@ -9,4 +9,4 @@ export interface Options {}
  * ```js
  * ```
  */
-export default function templateName(value: any, options?: Options): object
+export default function stringByteSlice(value: any, options?: Options): object
