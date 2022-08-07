@@ -1,10 +1,10 @@
 import { getByteStart, getByteEnd } from './bytes.js'
 
 // Uses `TextEncoder` to slice a string byte-wise.
-export const textEncoderSlice = function (string, byteStart, byteEnd) {
+export const textEncoderSlice = function (input, byteStart, byteEnd) {
   const { textEncoder, textDecoder } = getEncoderDecoder()
-  const buffer = getBuffer(string)
-  const { written } = textEncoder.encodeInto(string, buffer)
+  const buffer = getBuffer(input)
+  const { written } = textEncoder.encodeInto(input, buffer)
   const byteStartA = getByteStart(buffer, written, byteStart)
   const byteEndA = getByteEnd(buffer, written, byteEnd)
   const byteEndB =
@@ -32,8 +32,8 @@ let textEncoderCache
 let textDecoderCache
 
 // The buffer is cached for performance reason
-const getBuffer = function (string) {
-  const size = string.length * 3
+const getBuffer = function (input) {
+  const size = input.length * 3
 
   if (size > CACHE_MAX_MEMORY) {
     return new Uint8Array(size)

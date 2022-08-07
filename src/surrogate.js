@@ -11,19 +11,19 @@ import {
 // replace those after `string.slice()`.
 // Since U+FFFD is a 3-byte character in UTF-8, just like isolated surrogate
 // character, this does not impact slicing.
-export const replaceInvalidSurrogate = function (string) {
-  return hasSurrogates(string)
-    ? string.replace(SURROGATE_REGEXP, SURROGATE_REPLACE_CHAR)
-    : string
+export const replaceInvalidSurrogate = function (input) {
+  return hasSurrogates(input)
+    ? input.replace(SURROGATE_REGEXP, SURROGATE_REPLACE_CHAR)
+    : input
 }
 
 // Isolated surrogates should be rare. For performance reasons, we first check
 // if there are any before doing any string replacement.
 // Doing this check by iterating over the string is faster than using a RegExp.
-const hasSurrogates = function (string) {
+const hasSurrogates = function (input) {
   // eslint-disable-next-line fp/no-loops, fp/no-mutation, fp/no-let
-  for (let index = 0; index < string.length; index += 1) {
-    const codepoint = string.codePointAt(index)
+  for (let index = 0; index < input.length; index += 1) {
+    const codepoint = input.codePointAt(index)
 
     // eslint-disable-next-line max-depth
     if (codepoint >= FIRST_LOW_SURROGATE && codepoint <= LAST_HIGH_SURROGATE) {

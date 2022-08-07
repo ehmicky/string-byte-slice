@@ -7,12 +7,12 @@ import { LAST_ASCII_CODEPOINT, LAST_TWO_BYTES_CODEPOINT } from './codepoints.js'
 // Uses imperative logic for performance.
 /* eslint-disable fp/no-let, fp/no-loops, fp/no-mutation, max-depth,
    complexity, max-statements, no-continue */
-export const estimateCharWidth = function (string) {
+export const estimateCharWidth = function (input) {
   let asciiOnly = true
   let longCharsCount = 0
 
   for (let index = 0; index < SAMPLE_SIZE; index += 1) {
-    const codepoint = getCodepoint(string, index)
+    const codepoint = getCodepoint(input, index)
 
     if (codepoint <= LAST_ASCII_CODEPOINT) {
       continue
@@ -32,12 +32,12 @@ export const estimateCharWidth = function (string) {
 /* eslint-enable fp/no-let, fp/no-loops, fp/no-mutation, max-depth,
    complexity, max-statements, no-continue */
 
-const getCodepoint = function (string, index) {
+const getCodepoint = function (input, index) {
   const sampleSize = SAMPLE_SIZE - 1
   const percentage = 1 - (sampleSize - index) / sampleSize
-  const charIndex = Math.round(percentage * (string.length - 1))
+  const charIndex = Math.round(percentage * (input.length - 1))
   // eslint-disable-next-line unicorn/prefer-code-point
-  return string.charCodeAt(charIndex)
+  return input.charCodeAt(charIndex)
 }
 
 // How many characters to sample.

@@ -3,16 +3,16 @@ import {
   LAST_TWO_BYTES_CODEPOINT,
 } from '../codepoints.js'
 
-// Find the character index where to slice the string based on the amount of
+// Find the character index where to slice the `input` based on the amount of
 // bytes passed as argument.
 // Works both forward|backward for positive|negative arguments.
 // If the slice leaves some character partially cut, those are omitted.
-// Uses `string.charCodeAt()` over `String.codePointAt()` because it is faster.
+// Uses `string.charCodeAt()` over `string.codePointAt()` because it is faster.
 // Uses imperative code for performance.
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
 export const findCharIndex = function ({
-  string,
+  input,
   targetByteCount,
   firstStartSurrogate,
   lastStartSurrogate,
@@ -29,7 +29,7 @@ export const findCharIndex = function ({
 
   for (; byteCount < targetByteCount; charIndex += increment) {
     previousCharIndex = charIndex
-    const codepoint = string.charCodeAt(charIndex)
+    const codepoint = input.charCodeAt(charIndex)
 
     if (Number.isNaN(codepoint)) {
       break
@@ -51,7 +51,7 @@ export const findCharIndex = function ({
       continue
     }
 
-    const nextCodepoint = string.charCodeAt(charIndex + increment)
+    const nextCodepoint = input.charCodeAt(charIndex + increment)
 
     // Low surrogates should be followed by high surrogates.
     // However, JavaScript strings allow invalid surrogates, which are counted

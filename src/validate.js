@@ -1,7 +1,7 @@
 // Validate arguments
-export const validateInput = function (string, byteStart, byteEnd) {
-  if (typeof string !== 'string') {
-    throw new TypeError(`First argument must be a string: ${string}`)
+export const validateInput = function (input, byteStart, byteEnd) {
+  if (typeof input !== 'string') {
+    throw new TypeError(`First argument must be a string: ${input}`)
   }
 
   validateByteStart(byteStart)
