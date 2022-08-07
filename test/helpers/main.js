@@ -5,6 +5,8 @@ import stringByteLength from 'string-byte-length'
 import stringByteSlice from 'string-byte-slice'
 import { each } from 'test-each'
 
+const LONG_STRING_LENGTH = 1e4
+
 each(
   [true, false],
   [true, false],
@@ -96,6 +98,14 @@ each(
     ['a\u{1F525}', 'a', 0, 2],
     ['a\u{1F525}', 'a', 0, 1],
     ['a\u{1F525}', '', 0, 0],
+
+    // Long strings
+    [
+      '_'.repeat(LONG_STRING_LENGTH),
+      '_'.repeat(LONG_STRING_LENGTH - 2),
+      1,
+      LONG_STRING_LENGTH - 1,
+    ],
   ],
   /* eslint-enable no-magic-numbers */
   /* eslint-disable max-params */
