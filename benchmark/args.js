@@ -1,54 +1,54 @@
 // Retrieve arguments used as input for benchmarks
-export const getArgs = function (character, slice, size) {
-  const string = getString(character, size)
-  const { byteStart, byteEnd } = getByteIndices(slice, size)
+export const getArgs = function ({
+  stringLength,
+  charWidth,
+  complexity,
+  startOnly,
+  slice,
+}) {
+  const string = getString({ stringLength, charWidth, complexity, startOnly })
+  const { byteStart, byteEnd } = getByteIndices(slice, stringLength)
   return { string, byteStart, byteEnd }
 }
 
 // Retrieve string used as input for benchmarks
-const getString = function (character, size) {
-  if (character === 'complex') {
-    return COMPLEX_CHARACTER.repeat(size)
+const getString = function ({
+  stringLength = 10,
+  charWidth = 4,
+  complexity = 10,
+  startOnly = false,
+}) {
+  const complexChar = CHARACTERS[charWidth]
+
+  if (stringLength === 1) {
+    return complexChar
   }
 
-  if (character.startsWith('normal')) {
-    return getNormalString(character, size)
+  const [, simpleChar] = CHARACTERS
+
+  if (startOnly) {
+    return `${complexChar}${simpleChar.repeat(stringLength - 1)}`
   }
 
-  const firstChar = character === 'simple' ? '' : COMPLEX_CHARACTER
-  return `${firstChar}${SIMPLE_CHARACTER.repeat(size)}`
+  const complexChars = complexChar.repeat(complexity)
+  const simpleChars = simpleChar.repeat(MAX_COMPLEXITY - complexity)
+  const chunk = `${complexChars}${simpleChars}`
+  return chunk.repeat(stringLength / MAX_COMPLEXITY)
 }
 
-const getNormalString = function (character, size) {
-  if (size === 1) {
-    return SIMPLE_CHARACTER
-  }
+// Unicode characters from 0 to 4 UTF-8 bytes
+const CHARACTERS = ['', 'a', '\u00B1', '\u25CA', '\u{1F525}']
+// Maximum value for `complexity`
+const MAX_COMPLEXITY = 100
 
-  const percentage = getPercentage(character)
-  const simpleCharacters = SIMPLE_CHARACTER.repeat(CHUNK_SIZE - percentage)
-  const complexCharacters = COMPLEX_CHARACTER.repeat(percentage)
-  const chunk = `${complexCharacters}${simpleCharacters}`
-  const chunksCount = size / CHUNK_SIZE
-  return chunk.repeat(chunksCount)
-}
-
-const getPercentage = function (character) {
-  const [, percentage = '10'] = character.split('-')
-  return Number(percentage)
-}
-
-const SIMPLE_CHARACTER = 'a'
-const COMPLEX_CHARACTER = '\u{10000}'
-const CHUNK_SIZE = 100
-
-const getByteIndices = function (slice, size) {
-  if (size <= 1) {
-    return { byteStart: 0, byteEnd: size }
+const getByteIndices = function (slice, stringLength) {
+  if (stringLength <= 1) {
+    return { byteStart: 0, byteEnd: stringLength }
   }
 
   const chunk =
-    slice === 'large' ? 1 : Math.round(size / SLICE_RATIOS[slice]) - 1
-  return { byteStart: chunk, byteEnd: size - chunk }
+    slice === 'large' ? 1 : Math.round(stringLength / SLICE_RATIOS[slice]) - 1
+  return { byteStart: chunk, byteEnd: stringLength - chunk }
 }
 
 const SLICE_RATIOS = { small: 2, medium: 5 }

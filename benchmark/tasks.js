@@ -5,8 +5,8 @@ import { textEncoderSlice } from '../src/encoder.js'
 import { getArgs } from './args.js'
 
 /* eslint-disable fp/no-mutation, fp/no-let, prefer-destructuring */
-const beforeAll = function ({ character, slice, size }) {
-  const args = getArgs(character, slice, size)
+const beforeAll = function (inputs) {
+  const args = getArgs(inputs)
   string = args.string
   byteStart = args.byteStart
   byteEnd = args.byteEnd
