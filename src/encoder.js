@@ -2,6 +2,7 @@ import { getByteStart, getByteEnd } from './bytes.js'
 
 // Uses `TextEncoder` to slice a string byte-wise.
 export const textEncoderSlice = function (string, byteStart, byteEnd) {
+  const { textEncoder, textDecoder } = getEncoderDecoder()
   const buffer = getBuffer(string)
   const { written } = textEncoder.encodeInto(string, buffer)
   const byteStartA = getByteStart(buffer, written, byteStart)
@@ -12,8 +13,23 @@ export const textEncoderSlice = function (string, byteStart, byteEnd) {
   return textDecoder.decode(bufferA)
 }
 
-const textEncoder = new TextEncoder()
-const textDecoder = new TextDecoder('utf8', { fatal: false })
+// Those global variables are not available in all environments, so we create
+// them at runtime then cache them
+const getEncoderDecoder = function () {
+  if (textEncoderCache === undefined) {
+    // eslint-disable-next-line fp/no-mutation
+    textEncoderCache = new globalThis.TextEncoder()
+    // eslint-disable-next-line fp/no-mutation
+    textDecoderCache = new globalThis.TextDecoder('utf8', { fatal: false })
+  }
+
+  return { textEncoder: textEncoderCache, textDecoder: textDecoderCache }
+}
+
+// eslint-disable-next-line fp/no-let, init-declarations
+let textEncoderCache
+// eslint-disable-next-line fp/no-let, init-declarations
+let textDecoderCache
 
 // The buffer is cached for performance reason
 const getBuffer = function (string) {
