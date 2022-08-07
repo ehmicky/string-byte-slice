@@ -1,6 +1,6 @@
 import {
-  FIRST_LOW_SURROGATE,
-  LAST_HIGH_SURROGATE,
+  FIRST_HIGH_SURROGATE,
+  LAST_LOW_SURROGATE,
   SURROGATE_REGEXP,
   SURROGATE_REPLACE_CHAR,
 } from './codepoints.js'
@@ -26,7 +26,7 @@ const hasSurrogates = function (input) {
     const codepoint = input.codePointAt(index)
 
     // eslint-disable-next-line max-depth
-    if (codepoint >= FIRST_LOW_SURROGATE && codepoint <= LAST_HIGH_SURROGATE) {
+    if (codepoint >= FIRST_HIGH_SURROGATE && codepoint <= LAST_LOW_SURROGATE) {
       return true
     }
   }

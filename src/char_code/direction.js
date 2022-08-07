@@ -1,8 +1,8 @@
 import {
-  FIRST_LOW_SURROGATE,
-  LAST_LOW_SURROGATE,
   FIRST_HIGH_SURROGATE,
   LAST_HIGH_SURROGATE,
+  FIRST_LOW_SURROGATE,
+  LAST_LOW_SURROGATE,
 } from '../codepoints.js'
 
 import { findCharIndex } from './indices.js'
@@ -21,10 +21,10 @@ const byteToCharForward = function (input, byteIndex, isEnd) {
   return findCharIndex({
     input,
     targetByteCount: byteIndex,
-    firstStartSurrogate: FIRST_LOW_SURROGATE,
-    lastStartSurrogate: LAST_LOW_SURROGATE,
-    firstEndSurrogate: FIRST_HIGH_SURROGATE,
-    lastEndSurrogate: LAST_HIGH_SURROGATE,
+    firstStartSurrogate: FIRST_HIGH_SURROGATE,
+    lastStartSurrogate: LAST_HIGH_SURROGATE,
+    firstEndSurrogate: FIRST_LOW_SURROGATE,
+    lastEndSurrogate: LAST_LOW_SURROGATE,
     increment: 1,
     canBacktrack: isEnd,
     shift: 0,
@@ -37,10 +37,10 @@ const byteToCharBackward = function (input, byteIndex, isEnd) {
   return findCharIndex({
     input,
     targetByteCount: -byteIndex,
-    firstStartSurrogate: FIRST_HIGH_SURROGATE,
-    lastStartSurrogate: LAST_HIGH_SURROGATE,
-    firstEndSurrogate: FIRST_LOW_SURROGATE,
-    lastEndSurrogate: LAST_LOW_SURROGATE,
+    firstStartSurrogate: FIRST_LOW_SURROGATE,
+    lastStartSurrogate: LAST_LOW_SURROGATE,
+    firstEndSurrogate: FIRST_HIGH_SURROGATE,
+    lastEndSurrogate: LAST_HIGH_SURROGATE,
     increment: -1,
     canBacktrack: !isEnd,
     shift: 1,

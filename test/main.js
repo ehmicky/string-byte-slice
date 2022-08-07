@@ -72,7 +72,7 @@ each(
     ['a\uFB00', 'a', 0, 1],
     ['a\uFB00', '', 0, 0],
 
-    // Isolated low surrogate
+    // Isolated high surrogate
     ['\uD800a', '\uFFFDa', 0],
     ['\uD800a', 'a', 1],
     ['\uD800a', 'a', 2],
@@ -84,7 +84,7 @@ each(
     ['a\uD800', 'a', 0, 1],
     ['a\uD800', '', 0, 0],
 
-    // Isolated high surrogate
+    // Isolated low surrogate
     ['\uDC00\uFB00', '\uFFFD\uFB00', 0],
     ['\uDC00\uFB00', '\uFB00', 1],
     ['\uDC00\uFB00', '\uFB00', 2],

@@ -53,7 +53,7 @@ export const findCharIndex = function ({
 
     const nextCodepoint = input.charCodeAt(charIndex + increment)
 
-    // Low surrogates should be followed by high surrogates.
+    // High surrogates should be followed by low surrogates.
     // However, JavaScript strings allow invalid surrogates, which are counted
     // as a normal 3-byte character. This should not happen often in real code
     // though.
