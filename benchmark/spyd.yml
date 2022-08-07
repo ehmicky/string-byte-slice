@@ -1,13 +1,39 @@
-precision: 5
+precision: 7
 reporter: debug
 # TODO: enable inputs variations, including titles
 inputs:
+  # Character length of the input string
   stringLength: 2e2
+  # Whether the slice should be:
+  #  - small: only slices a few bytes out
+  #  - medium: slices about half of the string
+  #  - large: only leaves a few bytes
   slice: medium
-  charWidth: 4
+
+  # Inputs for: "Only ASCII"
+  # charWidth: 1
+  # complexity: 0
+  # startOnly: false
+
+  # Inputs for: "Mostly ASCII, very few non-ASCII"
+  # charWidth: 3
+  # complexity: 0
+  # startOnly: true
+
+  # Inputs for: "Mostly ASCII, some non-ASCII"
+  # UTF-8 byte length of complex characters, from 1 to 4
+  charWidth: 3
+  # Percentage (from 0 to 100) of complex characters, as opposed to ASCII
   complexity: 30
+  # When `true`, only ASCII characters are used except the first one
   startOnly: false
+
+  # Inputs for: "Only non-ASCII"
+  # charWidth: 4
+  # complexity: 100
+  # startOnly: false
 titles:
+  stringByteSlice: string-byte-slice
   charCodeAt: String.charCodeAt()
   bufferFrom: Buffer.from()
   textEncoder: TextEncoder

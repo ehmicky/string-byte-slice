@@ -1,3 +1,5 @@
+import stringByteSliceLib from 'string-byte-slice'
+
 import { bufferSlice } from '../src/buffer.js'
 import { charCodeSlice } from '../src/char_code/main.js'
 import { textEncoderSlice } from '../src/encoder.js'
@@ -16,6 +18,13 @@ let string = ''
 let byteStart = 0
 let byteEnd = 0
 /* eslint-enable fp/no-mutation, fp/no-let, prefer-destructuring */
+
+export const stringByteSlice = {
+  beforeAll,
+  main() {
+    stringByteSliceLib(string, byteStart, byteEnd)
+  },
+}
 
 export const charCodeAt = {
   beforeAll,
