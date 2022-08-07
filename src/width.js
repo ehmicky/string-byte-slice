@@ -43,4 +43,4 @@ const getCodepoint = function (input, index) {
 // How many characters to sample.
 // A higher number is slower.
 // A lower number results in a more imprecise estimate.
-const SAMPLE_SIZE = 1e2
+const SAMPLE_SIZE = 50
