@@ -73,8 +73,8 @@ Returns a copy of `input`:
 
 Since Unicode characters can span multiple bytes, if the first or last character
 of the slice has been cut in its middle, it is discarded from the return value.
-This means the `start` and `end` might end up being up to 3 bytes larger than
-specified.
+This means the `start` and `end` might end up being up to 3 bytes off from the
+specified value.
 
 # Benchmarks
 
