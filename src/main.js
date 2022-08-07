@@ -24,6 +24,22 @@ export default function stringByteSlice(string, byteStart, byteEnd) {
 //     - when the string has mostly 3 or 4-UTF8-bytes-long characters
 //  - `Buffer.from()` is the fastest when the string has only ASCII characters
 const useBestSlice = function (string, byteStart, byteEnd) {
+  if (globalThis.TEST_BUFFER === true) {
+    return tryBufferSlice(string, byteStart, byteEnd)
+  }
+
+  if (globalThis.TEST_TEXT_ENCODER === true) {
+    return tryTextEncoderSlice(string, byteStart, byteEnd)
+  }
+
+  if (globalThis.TEST_CHAR_CODE === true) {
+    return charCodeSlice(string, byteStart, byteEnd)
+  }
+
+  return useBestWidthSlice(string, byteStart, byteEnd)
+}
+
+const useBestWidthSlice = function (string, byteStart, byteEnd) {
   if (string.length <= CHAR_CODE_MIN_LENGTH) {
     return charCodeSlice(string, byteStart, byteEnd)
   }

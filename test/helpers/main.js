@@ -8,7 +8,7 @@ import { each } from 'test-each'
 // eslint-disable-next-line import/no-unassigned-import
 import './validate.js'
 
-const LONG_STRING_LENGTH = 1e4
+const LONG_STRING_LENGTH = 1e6
 
 each(
   [true, false],

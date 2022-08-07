@@ -1,5 +1,5 @@
-// Test using `TextEncoder`, if supported
+// Test using `Buffer.from()`
 // eslint-disable-next-line fp/no-mutation, import/unambiguous
-globalThis.TEST_TEXT_ENCODER = true
+globalThis.TEST_BUFFER = true
 
 await import('./helpers/main.js')
