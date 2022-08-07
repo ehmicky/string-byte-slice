@@ -107,53 +107,65 @@ This library picks the fastest method based on the platform and the `input`.
                                                                               String length
                                                            1      1e1    1e2     1e3     1e4     1e5     1e6     1e7     1e8
 
-Small slice  Only ASCII         String.charCodeAt()   19.2ns   36.2ns  219ns  2.02μs 20.21μs 196.0μs  2.70ms 27.34ms 269.0ms
-                                Buffer.from()        294.1ns  322.2ns  384ns  0.59μs  3.34μs  24.7μs  0.26ms  3.13ms  51.9ms
-                                TextEncoder          979.0ns 1010.0ns 1110ns  1.00μs  1.63μs  16.5μs  0.21ms  2.63ms  34.1ms
+Small slice  Only ASCII         string-byte-slice     38.6ns   74.5ns  355ns  1.16μs  4.11μs  26.7μs  0.26ms  3.27ms  52.6ms
+                                String.charCodeAt()   23.5ns   63.0ns  361ns  3.04μs 28.29μs 288.2μs  3.16ms 31.16ms 316.0ms
+                                Buffer.from()        302.6ns  359.1ns  400ns  0.62μs  3.53μs  26.5μs  0.26ms  3.22ms  53.3ms
+                                TextEncoder          975.4ns  975.9ns  989ns  1.04μs  1.49μs  17.6μs  0.20ms  2.65ms  33.7ms
 
-             Mostly ASCII       String.charCodeAt()   22.3ns   31.2ns  255ns  2.54μs  31.2μs 308.7μs  3.24ms  34.4ms   343ms
-             Very few non-ASCII Buffer.from()        197.6ns  327.4ns  436ns  1.38μs  17.8μs 159.0μs  1.52ms  15.4ms   165ms
-                                TextEncoder          799.0ns 1050.0ns 1090ns  1.70μs   7.9μs  59.7μs  0.60ms   6.2ms    68ms
+             Mostly ASCII       string-byte-slice     38.8ns   68.0ns  392ns  2.33μs  9.96μs  97.8μs  0.95ms  9.97ms   103ms
+             Very few non-ASCII String.charCodeAt()   28.8ns   54.5ns  360ns  4.14μs 35.73μs 339.7μs  3.50ms 36.34ms   359ms
+                                Buffer.from()        222.3ns  343.9ns  509ns  1.83μs 21.34μs 195.6μs  1.70ms 18.99ms   191ms
+                                TextEncoder          809.5ns 1043.2ns 1105ns  1.95μs 11.49μs  95.8μs  0.95ms 10.53ms   103ms
 
-             Mostly ASCII       String.charCodeAt()   22.3ns   41.7ns  271ns  2.09μs  22.2μs   223μs  2.37ms  28.6ms   281ms
-             Some non-ASCII     Buffer.from()        197.6ns  409.2ns  587ns  2.27μs  25.5μs   236μs  2.34ms  23.1ms   238ms
-                                TextEncoder          799.0ns 1060.0ns 1170ns  2.01μs  11.3μs    92μs  0.96ms   9.7ms   104ms
+             Mostly ASCII       string-byte-slice     38.8ns   48.1ns  235ns  3.48μs  16.6μs   206μs  2.02ms  20.7ms   214ms
+             Some non-ASCII     String.charCodeAt()   28.8ns   35.9ns  233ns  2.11μs  22.3μs   241μs  2.01ms  26.5ms   212ms
+                                Buffer.from()        222.3ns  252.8ns  624ns  3.30μs  34.6μs   342μs  3.36ms  34.7ms   368ms
+                                TextEncoder          809.5ns  789.6ns 1156ns  2.95μs  20.1μs   205μs  2.02ms  20.8ms   224ms
 
-             Only non-ASCII     String.charCodeAt()   22.3ns   28.0ns  163ns  1.15μs  15.6μs   109μs  1.47ms  14.5ms   145ms
-                                Buffer.from()        197.6ns  283.8ns  877ns  5.74μs  75.3μs   675μs  7.49ms  74.8ms   725ms
-                                TextEncoder          799.0ns  803.0ns 1160ns  4.16μs  36.5μs   373μs  3.65ms  41.0ms   401ms
+             Only non-ASCII     string-byte-slice     38.6ns   55.1ns  202ns  1.93μs  16.6μs   154μs  1.38ms  16.7ms   167ms
+                                String.charCodeAt()   23.5ns   50.6ns  185ns  1.42μs  17.2μs   166μs  1.68ms  16.7ms   168ms
+                                Buffer.from()        302.6ns  344.2ns 1113ns  8.73μs 129.9μs  1173μs 11.82ms 124.6ms  1226ms
+                                TextEncoder          975.4ns  850.4ns 1304ns  7.15μs  49.5μs   479μs  4.80ms  55.4ms   525ms
 
-Medium slice Only ASCII         String.charCodeAt()   19.2ns   32.9ns  237ns  3.32μs 20.33μs 270.3μs  2.71ms 26.64ms 268.8ms
-                                Buffer.from()        294.1ns  330.9ns  380ns  0.65μs  3.94μs  34.5μs  0.49ms  6.05ms  73.0ms
-                                TextEncoder          979.0ns 1040.0ns 1130ns  2.40μs  7.48μs  74.8μs  0.91ms  8.62ms 141.8ms
+Medium slice Only ASCII         string-byte-slice     38.6ns   97.1ns  624ns  1.27μs  4.57μs  33.0μs  0.48ms  6.02ms  76.2ms
+                                String.charCodeAt()   23.5ns   93.6ns  585ns  6.05μs 58.88μs 498.0μs  5.22ms 51.64ms 515.5ms
+                                Buffer.from()        302.6ns  356.0ns  418ns  0.65μs  4.13μs  32.1μs  0.49ms  6.13ms  74.7ms
+                                TextEncoder          975.4ns 1059.7ns 1124ns  2.50μs  7.28μs  70.0μs  0.92ms  8.80ms 140.6ms
 
-             Mostly ASCII       String.charCodeAt()   22.3ns   44.6ns  271ns  4.11μs  27.2μs   281μs  3.40ms  34.4ms   341ms
-             Very few non-ASCII Buffer.from()        197.6ns  424.4ns  517ns  1.70μs  17.2μs   157μs  1.78ms  19.0ms   187ms
-                                TextEncoder          799.0ns 1040.0ns 1270ns  3.03μs  11.9μs   113μs  1.29ms  12.3ms   175ms
+             Mostly ASCII       string-byte-slice     38.8ns   86.7ns  611ns  3.76μs  15.6μs   151μs  1.68ms  16.3ms   212ms
+             Very few non-ASCII String.charCodeAt()   28.8ns   86.2ns  608ns  5.32μs  56.9μs   557μs  5.59ms  56.0ms   564ms
+                                Buffer.from()        222.3ns  353.2ns  505ns  1.97μs  23.6μs   180μs  1.97ms  20.6ms   215ms
+                                TextEncoder          809.5ns 1069.8ns 1185ns  3.36μs  22.1μs   151μs  1.70ms  16.3ms   216ms
 
-             Mostly ASCII       String.charCodeAt()   22.3ns   53.1ns  285ns  3.71μs  22.7μs   226μs  2.81ms  28.3ms   281ms
-             Some non-ASCII     Buffer.from()        197.6ns  420.0ns  742ns  3.49μs  37.6μs   359μs  3.93ms  39.0ms   376ms
-                                TextEncoder          799.0ns 1110.0ns 1290ns  5.12μs  17.6μs   173μs  1.94ms  17.7ms   225ms
+             Mostly ASCII       string-byte-slice     38.8ns   60.9ns  377ns  5.41μs  35.9μs   311μs  3.27ms  31.8ms   323ms
+             Some non-ASCII     String.charCodeAt()   28.8ns   49.2ns  403ns  3.40μs  33.3μs   378μs  3.77ms  32.1ms   323ms
+                                Buffer.from()        222.3ns  383.8ns  822ns  5.16μs  61.1μs   581μs  5.38ms  54.6ms   556ms
+                                TextEncoder          809.5ns 1052.9ns 1536ns  4.82μs  37.6μs   399μs  3.26ms  32.0ms   370ms
 
-             Only non-ASCII     String.charCodeAt()   22.3ns   42.5ns  138ns  1.17μs  10.9μs   108μs  1.47ms  14.6ms   145ms
-                                Buffer.from()        197.6ns  461.0ns 1214ns  8.82μs  91.3μs   901μs  9.33ms  99.4ms   955ms
-                                TextEncoder          799.0ns 1150.0ns 1580ns  8.01μs  51.8μs   622μs  5.01ms  53.9ms   553ms
+             Only non-ASCII     string-byte-slice     38.8ns  134.0ns  399ns  3.26μs  31.3μs   294μs  2.91ms  28.5ms   287ms
+                                String.charCodeAt()   28.8ns  116.0ns  387ns  2.89μs  30.6μs   291μs  2.86ms  29.3ms   287ms
+                                Buffer.from()        222.3ns  465.0ns 1571ns 11.47μs 156.6μs  1525μs 14.54ms 148.0ms  1468ms
+                                TextEncoder          809.5ns 1102.0ns 1844ns  7.83μs  65.6μs   608μs  6.25ms  66.8ms   682ms
 
-Large slice  Only ASCII         String.charCodeAt()   19.2ns   40.0ns  241ns  1.89μs 26.18μs 206.2μs  2.69ms 27.08ms 267.9ms
-                                Buffer.from()        294.1ns  334.8ns  397ns  0.66μs  4.01μs  33.8μs  0.56ms  7.24ms  84.6ms
-                                TextEncoder          979.0ns 1010.0ns 1820ns  2.79μs 10.50μs 108.0μs  1.43ms 16.10ms 210.0ms
+Large slice  Only ASCII         string-byte-slice     38.6ns  103.0ns  748ns  1.26μs  4.91μs  37.4μs  0.60ms  7.54ms  88.1ms
+                                String.charCodeAt()   23.5ns   95.4ns  729ns  7.42μs 66.97μs 674.3μs  6.49ms 65.62ms 651.0ms
+                                Buffer.from()        302.6ns  352.2ns  406ns  0.71μs  4.52μs  35.4μs  0.62ms  7.79ms  87.2ms
+                                TextEncoder          975.4ns  970.3ns 1491ns  3.12μs 20.00μs 107.7μs  1.44ms 16.48ms 214.5ms
 
-             Mostly ASCII       String.charCodeAt()   22.3ns    50.ns  299ns  4.09μs  27.6μs   348μs  3.41ms  34.1ms   341ms
-             Very few non-ASCII Buffer.from()        197.6ns  425.0ns  580ns  1.76μs  17.0μs   158μs  1.89ms  19.9ms   197ms
-                                TextEncoder          799.0ns 1080.0ns 1620ns  3.40μs  14.9μs   153μs  1.79ms  19.9ms   244ms
+             Mostly ASCII       string-byte-slice     38.8ns   92.4ns  747ns  4.02μs  19.3μs   195μs  2.21ms  23.7ms   279ms
+             Very few non-ASCII String.charCodeAt()   28.8ns   93.2ns  832ns  7.89μs  71.4μs   702μs  7.04ms  69.3ms   692ms
+                                Buffer.from()        222.3ns  400.5ns  529ns  2.07μs  19.6μs   184μs  2.15ms  22.0ms   225ms
+                                TextEncoder          809.5ns 1054.1ns 1614ns  4.17μs  27.7μs   178μs  2.27ms  23.8ms   284ms
 
-             Mostly ASCII       String.charCodeAt()   22.3ns   44.6ns  256ns  2.34μs  23.1μs   233μs  2.61ms  25.7ms   257ms
-             Some non-ASCII     Buffer.from()        197.6ns  416.9ns  852ns  4.42μs  48.1μs   490μs  4.40ms  43.9ms   435ms
-                                TextEncoder          799.0ns 1080.0ns 1670ns  3.96μs  21.5μs   256μs  2.60ms  26.2ms   305ms
+             Mostly ASCII       string-byte-slice     38.8ns   60.5ns  467ns  6.61μs  43.1μs   391μs  3.64ms  41.4ms   399ms
+             Some non-ASCII     String.charCodeAt()   28.8ns   49.5ns  441ns  4.83μs  36.2μs   455μs  4.50ms  44.8ms   401ms
+                                Buffer.from()        222.3ns  400.5ns  949ns  6.50μs  73.8μs   672μs  6.63ms  68.0ms   685ms
+                                TextEncoder          809.5ns 1087.9ns 1765ns  5.32μs  46.3μs   485μs  4.18ms  41.6ms   459ms
 
-             Only non-ASCII     String.charCodeAt()   22.3ns   41.8ns  135ns  1.13μs  15.1μs   147μs  1.46ms  14.6ms   146ms
-                                Buffer.from()        197.6ns  477.1ns 1379ns 10.08μs 118.6μs  1067μs 10.93ms 112.6ms  1113ms
-                                TextEncoder          799.0ns 1160.0ns 1990ns  7.28μs  62.0μs   545μs  5.75ms  63.2ms   637ms
+             Only non-ASCII     string-byte-slice     38.8ns  125.0ns  466ns  3.79μs  38.5μs   373μs  3.68ms  36.7ms   366ms
+                                String.charCodeAt()   28.8ns  124.0ns  457ns  3.63μs  37.7μs   370μs  3.67ms  37.2ms   365ms
+                                Buffer.from()        222.3ns  458.0ns 1655ns 12.85μs 172.7μs  1662μs 16.14ms 165.7ms  1647ms
+                                TextEncoder          809.5ns 1114.0ns 2142ns  8.19μs  75.0μs   697μs  7.13ms  76.1ms   775ms
 ```
 
 # Related projects
