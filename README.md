@@ -89,14 +89,16 @@ There are several ways to slice a string bytewise:
   and
   [`buffer.subarray()`](https://nodejs.org/api/buffer.html#bufsubarraystart-end)
 - Using
-  [`TextEncoder`](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder)
-  and
+  [`TextEncoder`](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder),
   [`TextDecoder`](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder)
+  and
+  [`uint8array.slice()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/slice)
 
-Which one is the fastest depends on:
+Which one is the fastest depends on many factors including:
 
 - The string length
 - How often the characters are ASCII or not
+- How big the slice is
 - Whether the method is supported in the current platform
 
 This library picks the fastest method based on the platform and the `input`.
