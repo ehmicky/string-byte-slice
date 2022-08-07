@@ -1,13 +1,27 @@
 import { bufferSlice } from './buffer.js'
 import { charCodeSlice } from './char_code/main.js'
 import { textEncoderSlice } from './encoder.js'
+import { normalizeByteEnd, normalizeByteIndex } from './normalize.js'
+import { replaceInvalidSurrogate } from './surrogate.js'
 import { validateInput } from './validate.js'
 import { estimateCharWidth } from './width.js'
 
 // Like `string.slice()` but bytewise
 export default function stringByteSlice(string, byteStart, byteEnd) {
   validateInput(string, byteStart, byteEnd)
-  return string === '' ? '' : useBestSlice(string, byteStart, byteEnd)
+
+  if (string === '') {
+    return string
+  }
+
+  const byteStartA = normalizeByteIndex(string, byteStart)
+  const byteEndA = normalizeByteEnd(string, byteEnd)
+
+  if (byteEndA === undefined && Object.is(byteStartA, 0)) {
+    return replaceInvalidSurrogate(string)
+  }
+
+  return useBestSlice(string, byteStart, byteEnd)
 }
 
 // Which is the fastest algorithm depends on:

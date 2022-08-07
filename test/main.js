@@ -26,9 +26,13 @@ each(
 
     // Very low|high indices
     ['abcd', '', 10],
+    ['abcd', '', 100],
     ['abcd', '', 0, -10],
+    ['abcd', '', 0, -100],
     ['abcd', 'abcd', -10],
+    ['abcd', 'abcd', -100],
     ['abcd', 'abcd', 0, 10],
+    ['abcd', 'abcd', 0, 100],
 
     // Empty string
     ['', '', 0],

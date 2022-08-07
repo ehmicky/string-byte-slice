@@ -1,5 +1,6 @@
+import { replaceInvalidSurrogate } from '../surrogate.js'
+
 import { byteToChar } from './direction.js'
-import { replaceInvalidSurrogate } from './surrogate.js'
 
 // Variant that slices by iterating over the string using `String.charCode()`
 export const charCodeSlice = function (string, byteStart, byteEnd) {
