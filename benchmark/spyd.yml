@@ -1,9 +1,9 @@
 precision: 5
 reporter: debug
 inputs:
-  character: normal
+  character: normal-30
   slice: medium
-  size: 1e4
+  size: 2e2
   # TODO: enable inputs variations
   # character:
   #   simple: simple

@@ -11,27 +11,35 @@ const getString = function (character, size) {
     return COMPLEX_CHARACTER.repeat(size)
   }
 
-  if (character === 'normal') {
-    return getNormalString(size)
+  if (character.startsWith('normal')) {
+    return getNormalString(character, size)
   }
 
   const firstChar = character === 'simple' ? '' : COMPLEX_CHARACTER
   return `${firstChar}${SIMPLE_CHARACTER.repeat(size)}`
 }
 
-const getNormalString = function (size) {
+const getNormalString = function (character, size) {
   if (size === 1) {
     return SIMPLE_CHARACTER
   }
 
+  const percentage = getPercentage(character)
+  const simpleCharacters = SIMPLE_CHARACTER.repeat(CHUNK_SIZE - percentage)
+  const complexCharacters = COMPLEX_CHARACTER.repeat(percentage)
+  const chunk = `${complexCharacters}${simpleCharacters}`
   const chunksCount = size / CHUNK_SIZE
-  const chunk = `${COMPLEX_CHARACTER}${SIMPLE_CHARACTER.repeat(CHUNK_SIZE - 1)}`
   return chunk.repeat(chunksCount)
+}
+
+const getPercentage = function (character) {
+  const [, percentage = '10'] = character.split('-')
+  return Number(percentage)
 }
 
 const SIMPLE_CHARACTER = 'a'
 const COMPLEX_CHARACTER = '\u{10000}'
-const CHUNK_SIZE = 10
+const CHUNK_SIZE = 100
 
 const getByteIndices = function (slice, size) {
   if (size <= 1) {
