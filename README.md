@@ -8,9 +8,8 @@ Like `string.slice()` but bytewise.
 
 [`string.slice()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice)
 operates character-wise. Each character can take up to 4 bytes when serialized
-with UTF-8 (in a file, network request, etc.). This library does the same, but
-bytewise. This enables slicing or truncating a string to a specific amount of
-bytes.
+with UTF-8 (in a file, network request, etc.). This library slices or truncates
+a string to a specific amount of bytes instead.
 
 # Features
 
@@ -32,14 +31,14 @@ stringByteSlice('abcd', 0, 100) // "abcd"
 stringByteSlice('abcd', 0, -100) // ""
 
 // UTF-8 bytes length is taken into account
-stringByteSlice('abcdef', 4) // "ef"
-stringByteSlice('\0bcdef', 4) // "ef"
-stringByteSlice('±bcdef', 4) // "def"
-stringByteSlice('★bcdef', 4) // "cdef
-stringByteSlice('🦄bcdef', 4) // "bcdef"
+stringByteSlice('abcdef', 0, 4) // "abcd"
+stringByteSlice('\nbcdef', 0, 4) // "\nbcd"
+stringByteSlice('±bcdef', 0, 4) // "±bc"
+stringByteSlice('★bcdef', 0, 4) // "★b"
+stringByteSlice('🦄bcdef', 0, 4) // "🦄"
 
 // Partially cut characters are discarded
-stringByteSlice('🦄bcdef', 1) // "bcdef"
+stringByteSlice('🦄bcdef', 0, 3) // ""
 ```
 
 # Install
@@ -64,17 +63,17 @@ _Return value_: `string`
 Returns a copy of `input`:
 
 - From byte `start`
-- Up to `end` (excluded) (if specified).
+- If specified: up to byte `end` (excluded)
 
 `start` and `end`:
 
 - Are integers that start at 0
 - Can be negative to search from the end instead
-- Can be out-of-bound, in which case they stop at the start or end of `input`
+- If out-of-bound, they stop at the start or end of `input`
 
 Since Unicode characters can span multiple bytes, if the first or last character
-of slice has been cut in its middle, it is discarded from the return value. This
-means the `start` and `end` might end up being up to 3 bytes larger than
+of the slice has been cut in its middle, it is discarded from the return value.
+This means the `start` and `end` might end up being up to 3 bytes larger than
 specified.
 
 # Benchmarks
