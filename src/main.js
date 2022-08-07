@@ -24,22 +24,10 @@ export default function stringByteSlice(string, byteStart, byteEnd) {
 //     - when the string has mostly 3 or 4-UTF8-bytes-long characters
 //  - `Buffer.from()` is the fastest when the string has only ASCII characters
 const useBestSlice = function (string, byteStart, byteEnd) {
-  if ('TEST_STRING_BYTE_SLICE' in globalThis) {
-    return TEST_METHODS[globalThis.TEST_STRING_BYTE_SLICE](
-      string,
-      byteStart,
-      byteEnd,
-    )
-  }
-
   if (string.length <= CHAR_CODE_MIN_LENGTH) {
     return charCodeSlice(string, byteStart, byteEnd)
   }
 
-  return useBestWidthSlice(string, byteStart, byteEnd)
-}
-
-const useBestWidthSlice = function (string, byteStart, byteEnd) {
   const { asciiOnly, longCharsPercentage } = estimateCharWidth(string)
 
   if (asciiOnly) {
@@ -75,12 +63,4 @@ const tryTextEncoderSlice = function (string, byteStart, byteEnd) {
     ? textEncoderSlice(string, byteStart, byteEnd)
     : charCodeSlice(string, byteStart, byteEnd)
   /* c8 ignore stop */
-}
-
-// In automated tests, we need to bypass some of the logic above to ensure
-// that every method is covered
-const TEST_METHODS = {
-  buffer: tryBufferSlice,
-  encoder: tryTextEncoderSlice,
-  charCode: charCodeSlice,
 }

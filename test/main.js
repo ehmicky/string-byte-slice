@@ -1,16 +1,20 @@
 /* eslint-disable max-lines */
-// eslint-disable-next-line ava/no-ignored-test-files
 import test from 'ava'
 import stringByteLength from 'string-byte-length'
 import stringByteSlice from 'string-byte-slice'
 import { each } from 'test-each'
 
-// eslint-disable-next-line import/no-unassigned-import
-import './validate.js'
+// eslint-disable-next-line no-restricted-imports
+import { bufferSlice } from '../src/buffer.js'
+// eslint-disable-next-line no-restricted-imports
+import { charCodeSlice } from '../src/char_code.js'
+// eslint-disable-next-line no-restricted-imports
+import { textEncoderSlice } from '../src/encoder.js'
 
 const LONG_STRING_LENGTH = 1e6
 
 each(
+  [stringByteSlice, bufferSlice, textEncoderSlice, charCodeSlice],
   [true, false],
   [true, false],
   /* eslint-disable no-magic-numbers */
@@ -113,6 +117,7 @@ each(
   /* eslint-disable max-params */
   (
     { title },
+    sliceMethod,
     negativeStart,
     negativeEnd,
     [input, output, byteStart, byteEnd],
@@ -121,7 +126,7 @@ each(
     test(`String slice | ${title}`, (t) => {
       const byteStartA = getByteIndex(input, byteStart, negativeStart)
       const byteEndA = getByteIndex(input, byteEnd, negativeEnd)
-      t.is(stringByteSlice(input, byteStartA, byteEndA), output)
+      t.is(sliceMethod(input, byteStartA, byteEndA), output)
     })
   },
 )
