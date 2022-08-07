@@ -103,12 +103,11 @@ each(
     ['a\u{1F525}', '', 0, 0],
 
     // Long strings
-    [
-      '_'.repeat(LONG_STRING_LENGTH),
-      '_'.repeat(LONG_STRING_LENGTH - 2),
+    ...['a', '\u00B1', '\u25CA', '\u{1F525}'].map((char) => [
+      char.repeat(LONG_STRING_LENGTH),
+      char.repeat(LONG_STRING_LENGTH - 1),
       1,
-      LONG_STRING_LENGTH - 1,
-    ],
+    ]),
   ],
   /* eslint-enable no-magic-numbers */
   /* eslint-disable max-params */
