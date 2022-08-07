@@ -9,7 +9,7 @@ export const textEncoderSlice = function (input, byteStart, byteEnd) {
   const byteEndA = getByteEnd(buffer, written, byteEnd)
   const byteEndB =
     byteEndA === undefined ? written : Math.min(byteEndA, written)
-  const bufferA = buffer.slice(byteStartA, byteEndB)
+  const bufferA = buffer.subarray(byteStartA, byteEndB)
   return textDecoder.decode(bufferA)
 }
 

@@ -92,6 +92,8 @@ There are several ways to slice a string bytewise:
   [`TextEncoder`](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder),
   [`TextDecoder`](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder)
   and
+  [`uint8array.subarray()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/subarray)
+  or
   [`uint8array.slice()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/slice)
 
 Which one is the fastest depends on many factors including:
