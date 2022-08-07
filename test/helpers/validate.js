@@ -1,3 +1,4 @@
+// eslint-disable-next-line ava/no-ignored-test-files
 import test from 'ava'
 import stringByteSlice from 'string-byte-slice'
 import { each } from 'test-each'
