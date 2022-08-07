@@ -2,7 +2,6 @@ import { getByteStart, getByteEnd } from './bytes.js'
 import { validateInput } from './validate.js'
 
 // Uses `TextEncoder` to slice a string byte-wise.
-// Note: `encode()` converts invalid surrogates to U+fffd.
 export const createEncoder = function () {
   return stringByteSliceEncoder.bind(
     undefined,

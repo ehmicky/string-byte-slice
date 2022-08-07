@@ -1,4 +1,5 @@
 import { byteToChar } from './direction.js'
+import { replaceInvalidSurrogate } from './surrogate.js'
 import { validateInput } from './validate.js'
 
 // Like `string.slice()` but bytewise
@@ -11,9 +12,11 @@ export default function stringByteSlice(string, byteStart, byteEnd) {
 
   const charStart = byteToChar(string, byteStart, false)
   const charEnd = getByteEnd(string, byteEnd)
-  return charStart === 0 && charEnd === undefined
-    ? string
-    : string.slice(charStart, charEnd)
+  const stringA =
+    charStart === 0 && charEnd === undefined
+      ? string
+      : string.slice(charStart, charEnd)
+  return replaceInvalidSurrogate(stringA)
 }
 
 const getByteEnd = function (string, byteEnd) {

@@ -59,24 +59,24 @@ each(
     ['a\uFB00', '', 0, 0],
 
     // Isolated low surrogate
-    ['\uD800a', '\uD800a', 0],
+    ['\uD800a', '\uFFFDa', 0],
     ['\uD800a', 'a', 1],
     ['\uD800a', 'a', 2],
     ['\uD800a', 'a', 3],
     ['\uD800a', '', 4],
-    ['a\uD800', 'a\uD800', 0, 4],
+    ['a\uD800', 'a\uFFFD', 0, 4],
     ['a\uD800', 'a', 0, 3],
     ['a\uD800', 'a', 0, 2],
     ['a\uD800', 'a', 0, 1],
     ['a\uD800', '', 0, 0],
 
     // Isolated high surrogate
-    ['\uDC00\uFB00', '\uDC00\uFB00', 0],
+    ['\uDC00\uFB00', '\uFFFD\uFB00', 0],
     ['\uDC00\uFB00', '\uFB00', 1],
     ['\uDC00\uFB00', '\uFB00', 2],
     ['\uDC00\uFB00', '\uFB00', 3],
     ['\uDC00\uFB00', '', 4],
-    ['\uFB00\uDC00', '\uFB00\uDC00', 0, 6],
+    ['\uFB00\uDC00', '\uFB00\uFFFD', 0, 6],
     ['\uFB00\uDC00', '\uFB00', 0, 5],
     ['\uFB00\uDC00', '\uFB00', 0, 4],
     ['\uFB00\uDC00', '\uFB00', 0, 3],
