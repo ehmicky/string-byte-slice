@@ -1,16 +1,11 @@
 /**
- * `string-byte-slice` options
- */
-export interface Options {}
-
-/**
  *
  * @example
  * ```js
  * ```
  */
-export default function stringByteSlice(
-  input: string,
+export default function stringByteSlice<T extends string>(
+  input: T,
   byteStart: number,
-  byteEnd: number,
-): string
+  byteEnd?: number,
+): T extends '' ? '' : string

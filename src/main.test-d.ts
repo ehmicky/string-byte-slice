@@ -1,8 +1,14 @@
-import { expectType, expectAssignable } from 'tsd'
+import { expectType, expectNotType, expectError } from 'tsd'
 
-import stringByteSlice, { Options } from './main.js'
+import stringByteSlice from './main.js'
 
-expectType<object>(stringByteSlice(true))
+expectType<string>(stringByteSlice('a', 0))
+expectError(stringByteSlice(true))
+expectError(stringByteSlice('a'))
+expectError(stringByteSlice('a', '0'))
 
-stringByteSlice(true, {})
-expectAssignable<Options>({})
+expectType<''>(stringByteSlice('', 0))
+expectNotType<''>(stringByteSlice('a', 0))
+
+stringByteSlice('a', 0, -1)
+expectError(stringByteSlice('a', '0', '0'))
