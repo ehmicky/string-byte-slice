@@ -3,7 +3,8 @@ import {
   LAST_LOW_SURROGATE,
   FIRST_HIGH_SURROGATE,
   LAST_HIGH_SURROGATE,
-} from './codepoints.js'
+} from '../codepoints.js'
+
 import { findCharIndex } from './indices.js'
 
 // Convert `byteIndex` to `charIndex`.

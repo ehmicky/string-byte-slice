@@ -1,4 +1,7 @@
-import { LAST_ASCII_CODEPOINT, LAST_TWO_BYTES_CODEPOINT } from './codepoints.js'
+import {
+  LAST_ASCII_CODEPOINT,
+  LAST_TWO_BYTES_CODEPOINT,
+} from '../codepoints.js'
 
 // Find the character index where to slice the string based on the amount of
 // bytes passed as argument.

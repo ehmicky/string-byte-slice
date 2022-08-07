@@ -1,5 +1,5 @@
 import { bufferSlice } from './buffer.js'
-import { charCodeSlice } from './char_code.js'
+import { charCodeSlice } from './char_code/main.js'
 import { textEncoderSlice } from './encoder.js'
 import { validateInput } from './validate.js'
 import { estimateCharWidth } from './width.js'

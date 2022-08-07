@@ -1,5 +1,5 @@
 import { bufferSlice } from '../src/buffer.js'
-import { charCodeSlice } from '../src/char_code.js'
+import { charCodeSlice } from '../src/char_code/main.js'
 import { textEncoderSlice } from '../src/encoder.js'
 
 import { getArgs } from './args.js'

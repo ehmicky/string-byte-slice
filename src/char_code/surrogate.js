@@ -3,7 +3,7 @@ import {
   LAST_HIGH_SURROGATE,
   SURROGATE_REGEXP,
   SURROGATE_REPLACE_CHAR,
-} from './codepoints.js'
+} from '../codepoints.js'
 
 // Both `Buffer.from()` and `TextEncoder.encode()` replace invalid surrogate
 // characters to U+FFFD. However, `string.slice()` does not.

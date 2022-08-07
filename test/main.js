@@ -7,7 +7,7 @@ import { each } from 'test-each'
 // eslint-disable-next-line no-restricted-imports
 import { bufferSlice } from '../src/buffer.js'
 // eslint-disable-next-line no-restricted-imports
-import { charCodeSlice } from '../src/char_code.js'
+import { charCodeSlice } from '../src/char_code/main.js'
 // eslint-disable-next-line no-restricted-imports
 import { textEncoderSlice } from '../src/encoder.js'
 
