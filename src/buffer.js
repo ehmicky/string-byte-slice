@@ -6,5 +6,7 @@ export const bufferSlice = function (string, byteStart, byteEnd) {
   const buffer = globalThis.Buffer.from(string)
   const byteStartA = getByteStart(buffer, buffer.length, byteStart)
   const byteEndA = getByteEnd(buffer, buffer.length, byteEnd)
-  return buffer.toString('utf8', byteStartA, byteEndA)
+  return byteStartA === 0 && byteEndA >= buffer.length
+    ? buffer.toString()
+    : buffer.toString('utf8', byteStartA, byteEndA)
 }
