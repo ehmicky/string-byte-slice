@@ -23,14 +23,14 @@ inputs:
   # Inputs for: "Mostly ASCII, some non-ASCII"
   # UTF-8 byte length of complex characters, from 1 to 4
   charWidth: 3
-  # Percentage (from 0 to 100) of complex characters, as opposed to ASCII
-  complexity: 30
+  # Ratio (from 0 to 10) of complex characters, as opposed to ASCII
+  complexity: 4
   # When `true`, only ASCII characters are used except the first one
   startOnly: false
 
   # Inputs for: "Only non-ASCII"
   # charWidth: 4
-  # complexity: 100
+  # complexity: 10
   # startOnly: false
 titles:
   stringByteSlice: string-byte-slice

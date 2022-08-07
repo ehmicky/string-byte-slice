@@ -14,8 +14,8 @@ export const getArgs = function ({
 // Retrieve string used as input for benchmarks
 const getString = function ({
   stringLength = 10,
-  charWidth = 4,
-  complexity = 10,
+  charWidth = 3,
+  complexity = 4,
   startOnly = false,
 }) {
   const complexChar = CHARACTERS[charWidth]
@@ -39,7 +39,7 @@ const getString = function ({
 // Unicode characters from 0 to 4 UTF-8 bytes
 const CHARACTERS = ['', 'a', '\u00B1', '\u25CA', '\u{1F525}']
 // Maximum value for `complexity`
-const MAX_COMPLEXITY = 100
+const MAX_COMPLEXITY = 10
 
 const getByteIndices = function (slice, stringLength) {
   if (stringLength <= 1) {
