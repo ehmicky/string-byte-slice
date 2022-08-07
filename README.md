@@ -6,14 +6,40 @@
 
 Like `string.slice()` but bytewise.
 
-Work in progress!
+[`string.slice()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice)
+operates character-wise. Each character can take up to 4 bytes when serialized
+with UTF-8 (in a file, network request, etc.). This library does the same, but
+bytewise. This enables slicing or truncating a string to a specific amount of
+bytes.
 
 # Features
+
+- Same [interface](#api) as `string.slice()`
+- [Fastest](#benchmarks) available library in JavaScript.
+- Works on all platforms (Node.js, browsers, Deno, etc.)
 
 # Example
 
 ```js
 import stringByteSlice from 'string-byte-slice'
+
+// Works like `string.slice()`
+stringByteSlice('abcd', 1) // "bcd"
+stringByteSlice('abcd', 1, 3) // "bc"
+stringByteSlice('abcd', -3) // "bcd"
+stringByteSlice('abcd', 0, -1) // "abc"
+stringByteSlice('abcd', 0, 100) // "abcd"
+stringByteSlice('abcd', 0, -100) // ""
+
+// UTF-8 bytes length is taken into account
+stringByteSlice('abcdef', 4) // "ef"
+stringByteSlice('\0bcdef', 4) // "ef"
+stringByteSlice('±bcdef', 4) // "def"
+stringByteSlice('★bcdef', 4) // "cdef
+stringByteSlice('🦄bcdef', 4) // "bcdef"
+
+// Partially cut characters are discarded
+stringByteSlice('🦄bcdef', 1) // "bcdef"
 ```
 
 # Install
@@ -28,19 +54,30 @@ not `require()`.
 
 # API
 
-## stringByteSlice(value, options?)
+## stringByteSlice(input, start, end?)
 
-`value` `any`\
-`options` [`Options?`](#options)\
-_Return value_: [`object`](#return-value)
+`input` `string`\
+`start` `number`\
+`end` `number?`\
+_Return value_: `string`
 
-### Options
+Returns a copy of `input`:
 
-Object with the following properties.
+- From byte `start`
+- Up to `end` (excluded) (if specified).
 
-### Return value
+`start` and `end`:
 
-Object with the following properties.
+- Are integers that start at 0
+- Can be negative to search from the end instead
+- Can be out-of-bound, in which case they stop at the start or end of `input`
+
+Since Unicode characters can span multiple bytes, if the first or last character
+of slice has been cut in its middle, it is discarded from the return value. This
+means the `start` and `end` might end up being up to 3 bytes larger than
+specified.
+
+# Benchmarks
 
 # Related projects
 
