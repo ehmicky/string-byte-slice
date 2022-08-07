@@ -5,6 +5,9 @@ import stringByteLength from 'string-byte-length'
 import stringByteSlice from 'string-byte-slice'
 import { each } from 'test-each'
 
+// eslint-disable-next-line import/no-unassigned-import
+import './validate.js'
+
 const LONG_STRING_LENGTH = 1e4
 
 each(
