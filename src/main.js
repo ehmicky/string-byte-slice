@@ -21,7 +21,7 @@ export default function stringByteSlice(string, byteStart, byteEnd) {
     return replaceInvalidSurrogate(string)
   }
 
-  return useBestSlice(string, byteStart, byteEnd)
+  return useBestSlice(string, byteStartA, byteEndA)
 }
 
 // Which is the fastest algorithm depends on:
