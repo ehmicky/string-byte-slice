@@ -14,7 +14,7 @@ a string to a specific amount of bytes instead.
 # Features
 
 - Same [interface](#api) as `string.slice()`
-- [Fastest](#benchmarks) available library in JavaScript.
+- [Fastest](#benchmarks) available library in JavaScript
 - Works on all platforms (Node.js, browsers, Deno, etc.)
 
 # Example
@@ -69,7 +69,7 @@ Returns a copy of `input`:
 
 - Are integers that start at 0
 - Can be negative to search from the end instead
-- If out-of-bound, they stop at the start or end of `input`
+- If out-of-bound, stop at the start or end of `input`
 
 Since Unicode characters can span multiple bytes, if the first or last character
 of the slice has been cut in its middle, it is discarded from the return value.
