@@ -64,15 +64,19 @@ const CHAR_CODE_MIN_PERC = 0.4
 
 // `Buffer` is only available in Node.js
 const tryBufferSlice = function (string, byteStart, byteEnd) {
+  /* c8 ignore start */
   // eslint-disable-next-line n/prefer-global/buffer
   return 'Buffer' in globalThis && 'from' in globalThis.Buffer
     ? bufferSlice(string, byteStart, byteEnd)
     : tryTextEncoderSlice(string, byteStart, byteEnd)
+  /* c8 ignore stop */
 }
 
 // `TextEncoder` is usually available, except in some rare cases
 const tryTextEncoderSlice = function (string, byteStart, byteEnd) {
+  /* c8 ignore start */
   return 'TextEncoder' in globalThis
     ? textEncoderSlice(string, byteStart, byteEnd)
     : charCodeSlice(string, byteStart, byteEnd)
+  /* c8 ignore stop */
 }
