@@ -159,9 +159,9 @@ Large slice  Only ASCII         String.charCodeAt()   19.2ns   40.0ns  241ns  1.
 # Related projects
 
 - [`string-byte-length`](https://github.com/ehmicky/string-byte-length): Get the
-  UTF-8 byte length of a string.
+  UTF-8 byte length of a string
 - [`truncate-json`](https://github.com/ehmicky/truncate-json): Truncate a JSON
-  string.
+  string
 
 # Support
 
