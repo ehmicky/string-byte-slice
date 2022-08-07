@@ -7,12 +7,7 @@ import { estimateCharWidth } from './width.js'
 // Like `string.slice()` but bytewise
 export default function stringByteSlice(string, byteStart, byteEnd) {
   validateInput(string, byteStart, byteEnd)
-
-  if (string === '') {
-    return ''
-  }
-
-  return useBestSlice(string, byteStart, byteEnd)
+  return string === '' ? '' : useBestSlice(string, byteStart, byteEnd)
 }
 
 // Which is the fastest algorithm depends on:
