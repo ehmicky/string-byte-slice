@@ -1,16 +1,9 @@
 import { Buffer } from 'buffer'
 
 import { getByteStart, getByteEnd } from './bytes.js'
-import { validateInput } from './validate.js'
 
 // Uses `Buffer.from().toString()` to slice a string byte-wise.
-export const stringByteSliceBuffer = function (string, byteStart, byteEnd) {
-  validateInput(string, byteStart, byteEnd)
-
-  if (string === '') {
-    return ''
-  }
-
+export const bufferSlice = function (string, byteStart, byteEnd) {
   const buffer = Buffer.from(string)
   const byteStartA = getByteStart(buffer, buffer.length, byteStart)
   const byteEndA = getByteEnd(buffer, buffer.length, byteEnd)

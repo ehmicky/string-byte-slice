@@ -1,6 +1,6 @@
-import { stringByteSliceBuffer } from '../src/buffer.js'
-import { createEncoder } from '../src/encoder.js'
-import stringByteSlice from '../src/main.js'
+import { bufferSlice } from '../src/buffer.js'
+import { charCodeSlice } from '../src/char_code.js'
+import { textEncoderSlice } from '../src/encoder.js'
 
 import { getArgs } from './args.js'
 
@@ -20,21 +20,20 @@ let byteEnd = 0
 export const charCodeAt = {
   beforeAll,
   main() {
-    stringByteSlice(string, byteStart, byteEnd)
+    charCodeSlice(string, byteStart, byteEnd)
   },
 }
 
 export const bufferFrom = {
   beforeAll,
   main() {
-    stringByteSliceBuffer(string, byteStart, byteEnd)
+    bufferSlice(string, byteStart, byteEnd)
   },
 }
 
-const stringByteSliceEncoder = createEncoder()
 export const textEncoder = {
   beforeAll,
   main() {
-    stringByteSliceEncoder(string, byteStart, byteEnd)
+    textEncoderSlice(string, byteStart, byteEnd)
   },
 }

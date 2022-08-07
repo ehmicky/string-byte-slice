@@ -1,29 +1,7 @@
 import { getByteStart, getByteEnd } from './bytes.js'
-import { validateInput } from './validate.js'
 
 // Uses `TextEncoder` to slice a string byte-wise.
-export const createEncoder = function () {
-  return stringByteSliceEncoder.bind(
-    undefined,
-    new TextEncoder(),
-    new TextDecoder('utf8', { fatal: false }),
-  )
-}
-
-// eslint-disable-next-line max-params
-const stringByteSliceEncoder = function (
-  textEncoder,
-  textDecoder,
-  string,
-  byteStart,
-  byteEnd,
-) {
-  validateInput(string, byteStart, byteEnd)
-
-  if (string === '') {
-    return ''
-  }
-
+export const textEncoderSlice = function (string, byteStart, byteEnd) {
   const buffer = getBuffer(string)
   const { written } = textEncoder.encodeInto(string, buffer)
   const byteStartA = getByteStart(buffer, written, byteStart)
@@ -33,6 +11,9 @@ const stringByteSliceEncoder = function (
   const bufferA = buffer.slice(byteStartA, byteEndB)
   return textDecoder.decode(bufferA)
 }
+
+const textEncoder = new TextEncoder()
+const textDecoder = new TextDecoder('utf8', { fatal: false })
 
 // The buffer is cached for performance reason
 const getBuffer = function (string) {
