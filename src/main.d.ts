@@ -9,4 +9,8 @@ export interface Options {}
  * ```js
  * ```
  */
-export default function stringByteSlice(value: any, options?: Options): object
+export default function stringByteSlice(
+  input: string,
+  byteStart: number,
+  byteEnd: number,
+): string
