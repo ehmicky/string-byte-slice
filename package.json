@@ -53,7 +53,7 @@
     "@ehmicky/dev-tasks": "^1.0.99",
     "spyd": "^0.6.0",
     "string-byte-length": "^1.4.1",
-    "test-each": "^5.4.1"
+    "test-each": "^5.4.2"
   },
   "engines": {
     "node": ">=14.18.0"
