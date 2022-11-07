@@ -1,6 +1,6 @@
 import { expectType, expectNotType, expectError } from 'tsd'
 
-import stringByteSlice from './main.js'
+import stringByteSlice from 'string-byte-slice'
 
 expectType<string>(stringByteSlice('a', 0))
 expectError(stringByteSlice(true))
