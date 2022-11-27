@@ -5,11 +5,11 @@ import stringByteSlice from 'string-byte-slice'
 import { each } from 'test-each'
 
 // eslint-disable-next-line no-restricted-imports
-import { bufferSlice } from '../src/buffer.js'
+import { bufferSlice } from './buffer.js'
 // eslint-disable-next-line no-restricted-imports
-import { charCodeSlice } from '../src/char_code/main.js'
+import { charCodeSlice } from './char_code/main.js'
 // eslint-disable-next-line no-restricted-imports
-import { textEncoderSlice } from '../src/encoder.js'
+import { textEncoderSlice } from './encoder.js'
 
 const LONG_STRING_LENGTH = 1e6
 
