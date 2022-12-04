@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import test from 'ava'
 import stringByteLength from 'string-byte-length'
 import stringByteSlice from 'string-byte-slice'
@@ -146,4 +145,3 @@ const getByteIndex = function (input, byteIndex, isNegative) {
     ? -0
     : -Math.max(stringByteLength(input) - byteIndex, 0)
 }
-/* eslint-enable max-lines */
