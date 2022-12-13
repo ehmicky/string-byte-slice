@@ -10,15 +10,14 @@ import { findCharIndex } from './indices.js'
 // Convert `byteIndex` to `charIndex`.
 // Unlike `string.slice()`, `-0` is not handled the same as `+0` since it is
 // more useful.
-export const byteToChar = function (input, byteIndex, isStart) {
-  return byteIndex < 0 || Object.is(byteIndex, -0)
+export const byteToChar = (input, byteIndex, isStart) =>
+  byteIndex < 0 || Object.is(byteIndex, -0)
     ? byteToCharBackward(input, byteIndex, isStart)
     : byteToCharForward(input, byteIndex, isStart)
-}
 
 // Convert positive byteIndex argument to a charIndex
-const byteToCharForward = function (input, byteIndex, isEnd) {
-  return findCharIndex({
+const byteToCharForward = (input, byteIndex, isEnd) =>
+  findCharIndex({
     input,
     targetByteCount: byteIndex,
     firstStartSurrogate: FIRST_HIGH_SURROGATE,
@@ -30,11 +29,10 @@ const byteToCharForward = function (input, byteIndex, isEnd) {
     shift: 0,
     charIndexInit: 0,
   })
-}
 
 // Convert negative byteIndex argument to a charIndex
-const byteToCharBackward = function (input, byteIndex, isEnd) {
-  return findCharIndex({
+const byteToCharBackward = (input, byteIndex, isEnd) =>
+  findCharIndex({
     input,
     targetByteCount: -byteIndex,
     firstStartSurrogate: FIRST_LOW_SURROGATE,
@@ -46,4 +44,3 @@ const byteToCharBackward = function (input, byteIndex, isEnd) {
     shift: 1,
     charIndexInit: input.length - 1,
   })
-}

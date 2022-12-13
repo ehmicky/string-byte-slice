@@ -1,1 +1,9 @@
 extends: '@ehmicky/eslint-config/.eslintrc.yml'
+rules:
+  no-inline-comments:
+    - 2
+    - ignorePattern: c8
+overrides:
+  - files: ['**/*.md/*.{js,ts}', 'examples/**/*.{js,cjs,mjs,ts,cts,mts}']
+    rules:
+      no-inline-comments: 0

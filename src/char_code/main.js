@@ -3,7 +3,7 @@ import { replaceInvalidSurrogate } from '../surrogate.js'
 import { byteToChar } from './direction.js'
 
 // Variant that slices by iterating over the string using `String.charCode()`
-export const charCodeSlice = function (input, byteStart, byteEnd) {
+export const charCodeSlice = (input, byteStart, byteEnd) => {
   const charStart = byteToChar(input, byteStart, false)
   const charEnd = getByteEnd(input, byteEnd)
   const inputA =
@@ -13,7 +13,7 @@ export const charCodeSlice = function (input, byteStart, byteEnd) {
   return replaceInvalidSurrogate(inputA)
 }
 
-const getByteEnd = function (input, byteEnd) {
+const getByteEnd = (input, byteEnd) => {
   if (byteEnd === undefined) {
     return byteEnd
   }

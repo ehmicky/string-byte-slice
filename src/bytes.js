@@ -1,11 +1,11 @@
 // Normalize byte start index
-export const getByteStart = function (buffer, bufferLength, byteStart) {
+export const getByteStart = (buffer, bufferLength, byteStart) => {
   const byteStartA = convertNegativeIndex(bufferLength, byteStart)
   return findByteStart(buffer, bufferLength, byteStartA)
 }
 
 // If the slice starts in the middle of a multibyte sequence, we trim it.
-const findByteStart = function (buffer, bufferLength, byteStart) {
+const findByteStart = (buffer, bufferLength, byteStart) => {
   if (byteStart >= bufferLength) {
     return byteStart
   }
@@ -17,7 +17,7 @@ const findByteStart = function (buffer, bufferLength, byteStart) {
 }
 
 // Normalize byte end index
-export const getByteEnd = function (buffer, bufferLength, byteEnd) {
+export const getByteEnd = (buffer, bufferLength, byteEnd) => {
   if (byteEnd === undefined) {
     return byteEnd
   }
@@ -27,7 +27,7 @@ export const getByteEnd = function (buffer, bufferLength, byteEnd) {
 }
 
 // If the slice ends in the middle of a multibyte sequence, we trim it.
-const findByteEnd = function (buffer, byteEndA) {
+const findByteEnd = (buffer, byteEndA) => {
   if (isInvalid4Sequence(buffer, byteEndA)) {
     return byteEndA - 3
   }
@@ -43,27 +43,21 @@ const findByteEnd = function (buffer, byteEndA) {
   return byteEndA
 }
 
-const isInvalid4Sequence = function (buffer, byteEnd) {
-  return (
-    byteEnd >= 3 &&
-    buffer[byteEnd - 3] >= FIRST_BYTE_4_START &&
-    buffer[byteEnd - 3] <= FIRST_BYTE_4_END
-  )
-}
+const isInvalid4Sequence = (buffer, byteEnd) =>
+  byteEnd >= 3 &&
+  buffer[byteEnd - 3] >= FIRST_BYTE_4_START &&
+  buffer[byteEnd - 3] <= FIRST_BYTE_4_END
 
-const isInvalid3Sequence = function (buffer, byteEnd) {
-  return byteEnd >= 2 && buffer[byteEnd - 2] >= FIRST_BYTE_3_START
-}
+const isInvalid3Sequence = (buffer, byteEnd) =>
+  byteEnd >= 2 && buffer[byteEnd - 2] >= FIRST_BYTE_3_START
 
-const isInvalid2Sequence = function (buffer, byteEnd) {
-  return byteEnd >= 1 && buffer[byteEnd - 1] >= FIRST_BYTE_2_START
-}
+const isInvalid2Sequence = (buffer, byteEnd) =>
+  byteEnd >= 1 && buffer[byteEnd - 1] >= FIRST_BYTE_2_START
 
-const convertNegativeIndex = function (bufferLength, byteIndex) {
-  return byteIndex < 0 || Object.is(byteIndex, -0)
+const convertNegativeIndex = (bufferLength, byteIndex) =>
+  byteIndex < 0 || Object.is(byteIndex, -0)
     ? Math.max(bufferLength + byteIndex, 0)
     : byteIndex
-}
 
 // The first byte of a UTF-8 4-bytes sequence are between those.
 const FIRST_BYTE_4_START = 0xf0

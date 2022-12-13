@@ -7,7 +7,7 @@ import { getArgs } from './args.js'
 import stringByteSliceLib from 'string-byte-slice'
 
 /* eslint-disable fp/no-mutation, fp/no-let, prefer-destructuring */
-const beforeAll = function (inputs) {
+const beforeAll = (inputs) => {
   const args = getArgs(inputs)
   string = args.string
   byteStart = args.byteStart
@@ -21,28 +21,28 @@ let byteEnd = 0
 
 export const stringByteSlice = {
   beforeAll,
-  main() {
+  main: () => {
     stringByteSliceLib(string, byteStart, byteEnd)
   },
 }
 
 export const charCodeAt = {
   beforeAll,
-  main() {
+  main: () => {
     charCodeSlice(string, byteStart, byteEnd)
   },
 }
 
 export const bufferFrom = {
   beforeAll,
-  main() {
+  main: () => {
     bufferSlice(string, byteStart, byteEnd)
   },
 }
 
 export const textEncoder = {
   beforeAll,
-  main() {
+  main: () => {
     textEncoderSlice(string, byteStart, byteEnd)
   },
 }

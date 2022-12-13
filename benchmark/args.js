@@ -1,23 +1,23 @@
 // Retrieve arguments used as input for benchmarks
-export const getArgs = function ({
+export const getArgs = ({
   stringLength,
   charWidth,
   complexity,
   startOnly,
   slice,
-}) {
+}) => {
   const string = getString({ stringLength, charWidth, complexity, startOnly })
   const { byteStart, byteEnd } = getByteIndices(slice, stringLength)
   return { string, byteStart, byteEnd }
 }
 
 // Retrieve string used as input for benchmarks
-const getString = function ({
+const getString = ({
   stringLength = 10,
   charWidth = 3,
   complexity = 4,
   startOnly = false,
-}) {
+}) => {
   const complexChar = CHARACTERS[charWidth]
 
   if (stringLength === 1) {
@@ -41,7 +41,7 @@ const CHARACTERS = ['', 'a', '\u00B1', '\u25CA', '\u{1F525}']
 // Maximum value for `complexity`
 const MAX_COMPLEXITY = 10
 
-const getByteIndices = function (slice, stringLength) {
+const getByteIndices = (slice, stringLength) => {
   if (stringLength <= 1) {
     return { byteStart: 0, byteEnd: stringLength }
   }

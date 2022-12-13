@@ -137,7 +137,7 @@ each(
 
 // Iterate all tests using either positive or negative indices.
 // Works with -0 index.
-const getByteIndex = function (input, byteIndex, isNegative) {
+const getByteIndex = (input, byteIndex, isNegative) => {
   if (!isNegative) {
     return byteIndex
   }

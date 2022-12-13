@@ -7,7 +7,7 @@ import { validateInput } from './validate.js'
 import { estimateCharWidth } from './width.js'
 
 // Like `string.slice()` but bytewise
-export default function stringByteSlice(input, byteStart, byteEnd) {
+const stringByteSlice = (input, byteStart, byteEnd) => {
   validateInput(input, byteStart, byteEnd)
 
   if (input === '') {
@@ -24,6 +24,8 @@ export default function stringByteSlice(input, byteStart, byteEnd) {
   return useBestSlice(input, byteStartA, byteEndA)
 }
 
+export default stringByteSlice
+
 // Which is the fastest algorithm depends on:
 //  - The `input` length
 //  - How many characters are ASCII in the `input`
@@ -32,7 +34,7 @@ export default function stringByteSlice(input, byteStart, byteEnd) {
 //     - On small strings
 //     - when the string has mostly 3 or 4-UTF8-bytes-long characters
 //  - `Buffer.from()` is the fastest when the string has only ASCII characters
-const useBestSlice = function (input, byteStart, byteEnd) {
+const useBestSlice = (input, byteStart, byteEnd) => {
   if (input.length <= CHAR_CODE_MIN_LENGTH) {
     return charCodeSlice(input, byteStart, byteEnd)
   }
@@ -56,20 +58,16 @@ const CHAR_CODE_MIN_LENGTH = 2e2
 const CHAR_CODE_MIN_PERC = 0.4
 
 // `Buffer` is only available in Node.js
-const tryBufferSlice = function (input, byteStart, byteEnd) {
-  /* c8 ignore start */
+const tryBufferSlice = (input, byteStart, byteEnd) =>
   // eslint-disable-next-line n/prefer-global/buffer
-  return 'Buffer' in globalThis && 'from' in globalThis.Buffer
+  'Buffer' in globalThis && 'from' in globalThis.Buffer
     ? bufferSlice(input, byteStart, byteEnd)
-    : tryTextEncoderSlice(input, byteStart, byteEnd)
-  /* c8 ignore stop */
-}
+    : /* c8 ignore next */
+      tryTextEncoderSlice(input, byteStart, byteEnd)
 
 // `TextEncoder` is usually available, except in some rare cases
-const tryTextEncoderSlice = function (input, byteStart, byteEnd) {
-  /* c8 ignore start */
-  return 'TextEncoder' in globalThis
+const tryTextEncoderSlice = (input, byteStart, byteEnd) =>
+  'TextEncoder' in globalThis
     ? textEncoderSlice(input, byteStart, byteEnd)
-    : charCodeSlice(input, byteStart, byteEnd)
-  /* c8 ignore stop */
-}
+    : /* c8 ignore next */
+      charCodeSlice(input, byteStart, byteEnd)

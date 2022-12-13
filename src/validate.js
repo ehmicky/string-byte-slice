@@ -1,5 +1,5 @@
 // Validate arguments
-export const validateInput = function (input, byteStart, byteEnd) {
+export const validateInput = (input, byteStart, byteEnd) => {
   if (typeof input !== 'string') {
     throw new TypeError(`First argument must be a string: ${input}`)
   }
@@ -8,7 +8,7 @@ export const validateInput = function (input, byteStart, byteEnd) {
   validateByteEnd(byteEnd)
 }
 
-const validateByteStart = function (byteStart) {
+const validateByteStart = (byteStart) => {
   if (byteStart === undefined) {
     throw new TypeError('Second argument is required.')
   }
@@ -16,13 +16,13 @@ const validateByteStart = function (byteStart) {
   validateIndex('Second', byteStart)
 }
 
-const validateByteEnd = function (byteEnd) {
+const validateByteEnd = (byteEnd) => {
   if (byteEnd !== undefined) {
     validateIndex('Third', byteEnd)
   }
 }
 
-const validateIndex = function (name, byteIndex) {
+const validateIndex = (name, byteIndex) => {
   if (!Number.isInteger(byteIndex)) {
     throw new TypeError(`${name} argument must be an integer: ${byteIndex}`)
   }

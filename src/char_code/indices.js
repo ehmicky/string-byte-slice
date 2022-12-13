@@ -11,7 +11,7 @@ import {
 // Uses imperative code for performance.
 /* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
-export const findCharIndex = function ({
+export const findCharIndex = ({
   input,
   targetByteCount,
   firstStartSurrogate,
@@ -22,7 +22,7 @@ export const findCharIndex = function ({
   canBacktrack,
   shift,
   charIndexInit,
-}) {
+}) => {
   let charIndex = charIndexInit
   let previousCharIndex = charIndex
   let byteCount = 0

@@ -7,7 +7,7 @@ import { LAST_ASCII_CODEPOINT, LAST_TWO_BYTES_CODEPOINT } from './codepoints.js'
 // Uses imperative logic for performance.
 /* eslint-disable fp/no-let, fp/no-loops, fp/no-mutation, max-depth,
    complexity, max-statements, no-continue */
-export const estimateCharWidth = function (input) {
+export const estimateCharWidth = (input) => {
   let asciiOnly = true
   let longCharsCount = 0
 
@@ -32,7 +32,7 @@ export const estimateCharWidth = function (input) {
 /* eslint-enable fp/no-let, fp/no-loops, fp/no-mutation, max-depth,
    complexity, max-statements, no-continue */
 
-const getCodepoint = function (input, index) {
+const getCodepoint = (input, index) => {
   const sampleSize = SAMPLE_SIZE - 1
   const percentage = 1 - (sampleSize - index) / sampleSize
   const charIndex = Math.round(percentage * (input.length - 1))

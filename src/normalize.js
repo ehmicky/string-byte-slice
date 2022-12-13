@@ -1,7 +1,7 @@
 // UTF-8 characters are at most 4 bytes long, so we can normalize:
 //  - Very high end to `undefined`, based on `input.length`
 //  - Very low negative start|end to `0`
-export const normalizeByteEnd = function (input, byteEnd) {
+export const normalizeByteEnd = (input, byteEnd) => {
   if (byteEnd === undefined) {
     return byteEnd
   }
@@ -10,8 +10,7 @@ export const normalizeByteEnd = function (input, byteEnd) {
   return byteEndA >= input.length * MAX_UTF8_CHAR_LENGTH ? undefined : byteEndA
 }
 
-export const normalizeByteIndex = function (input, byteIndex) {
-  return byteIndex <= input.length * -MAX_UTF8_CHAR_LENGTH ? 0 : byteIndex
-}
+export const normalizeByteIndex = (input, byteIndex) =>
+  byteIndex <= input.length * -MAX_UTF8_CHAR_LENGTH ? 0 : byteIndex
 
 const MAX_UTF8_CHAR_LENGTH = 4
