@@ -1,7 +1,7 @@
 import test from 'ava'
+import stringByteSlice from 'string-byte-slice'
 import { each } from 'test-each'
 
-import stringByteSlice from 'string-byte-slice'
 
 each(
   [

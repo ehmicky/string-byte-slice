@@ -1,5 +1,6 @@
 import test from 'ava'
 import stringByteLength from 'string-byte-length'
+import stringByteSlice from 'string-byte-slice'
 import { each } from 'test-each'
 
 // eslint-disable-next-line no-restricted-imports
@@ -9,7 +10,6 @@ import { charCodeSlice } from './char_code/main.js'
 // eslint-disable-next-line no-restricted-imports
 import { textEncoderSlice } from './encoder.js'
 
-import stringByteSlice from 'string-byte-slice'
 
 const LONG_STRING_LENGTH = 1e6
 
