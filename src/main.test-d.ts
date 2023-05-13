@@ -1,5 +1,6 @@
-import stringByteSlice from 'string-byte-slice'
 import { expectType, expectNotType } from 'tsd'
+
+import stringByteSlice from 'string-byte-slice'
 
 expectType<string>(stringByteSlice('a', 0))
 // @ts-expect-error
