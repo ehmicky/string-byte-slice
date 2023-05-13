@@ -6,7 +6,6 @@ import { textEncoderSlice } from '../src/encoder.js'
 
 import { getArgs } from './args.js'
 
-
 /* eslint-disable fp/no-mutation, fp/no-let, prefer-destructuring */
 const beforeAll = (inputs) => {
   const args = getArgs(inputs)

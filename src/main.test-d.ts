@@ -1,7 +1,6 @@
 import stringByteSlice from 'string-byte-slice'
 import { expectType, expectNotType } from 'tsd'
 
-
 expectType<string>(stringByteSlice('a', 0))
 // @ts-expect-error
 stringByteSlice(true)

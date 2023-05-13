@@ -10,7 +10,6 @@ import { charCodeSlice } from './char_code/main.js'
 // eslint-disable-next-line no-restricted-imports
 import { textEncoderSlice } from './encoder.js'
 
-
 const LONG_STRING_LENGTH = 1e6
 
 each(
