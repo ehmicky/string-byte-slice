@@ -1,10 +1,10 @@
-import stringByteSliceLib from 'string-byte-slice'
-
 import { bufferSlice } from '../src/buffer.js'
 import { charCodeSlice } from '../src/char_code/main.js'
 import { textEncoderSlice } from '../src/encoder.js'
 
 import { getArgs } from './args.js'
+
+import stringByteSliceLib from 'string-byte-slice'
 
 /* eslint-disable fp/no-mutation, fp/no-let, prefer-destructuring */
 const beforeAll = (inputs) => {
