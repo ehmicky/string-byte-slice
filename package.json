@@ -42,7 +42,10 @@
   ],
   "license": "MIT",
   "homepage": "https://www.github.com/ehmicky/string-byte-slice",
-  "repository": "ehmicky/string-byte-slice",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehmicky/string-byte-slice.git"
+  },
   "bugs": {
     "url": "https://github.com/ehmicky/string-byte-slice/issues"
   },
