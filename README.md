@@ -13,6 +13,15 @@ operates character-wise. Each character can take up to 4 bytes when serialized
 with UTF-8 (in a file, network request, etc.). This library slices or truncates
 a string to a specific amount of bytes instead.
 
+# Hire me
+
+Please
+[reach out](https://www.linkedin.com/feed/update/urn:li:activity:7117265228068716545/)
+if you're looking for a Node.js API or CLI engineer (11 years of experience).
+Most recently I have been [Netlify Build](https://github.com/netlify/build)'s
+and [Netlify Plugins](https://www.netlify.com/products/build/plugins/)'
+technical lead for 2.5 years. I am available for full-time remote positions.
+
 # Features
 
 - Same [interface](#api) as `string.slice()`
