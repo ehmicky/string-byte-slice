@@ -9,7 +9,7 @@ import {
 // If the slice leaves some character partially cut, those are omitted.
 // Uses `string.charCodeAt()` over `string.codePointAt()` because it is faster.
 // Uses imperative code for performance.
-/* eslint-disable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
+/* eslint-disable max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
 export const findCharIndex = ({
   input,
@@ -73,5 +73,5 @@ export const findCharIndex = ({
     canBacktrack && byteCount > targetByteCount ? previousCharIndex : charIndex
   return finalCharIndex + shift
 }
-/* eslint-enable complexity, max-statements, fp/no-let, fp/no-loops, max-depth,
+/* eslint-enable max-statements, fp/no-let, fp/no-loops, max-depth,
    fp/no-mutation, no-continue, unicorn/prefer-code-point */
