@@ -1,4 +1,4 @@
-import { expectType, expectNotType } from 'tsd'
+import { expectNotType, expectType } from 'tsd'
 
 import stringByteSlice from 'string-byte-slice'
 

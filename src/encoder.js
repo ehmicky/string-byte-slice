@@ -1,4 +1,4 @@
-import { getByteStart, getByteEnd } from './bytes.js'
+import { getByteEnd, getByteStart } from './bytes.js'
 
 // Uses `TextEncoder` to slice a string byte-wise.
 export const textEncoderSlice = (input, byteStart, byteEnd) => {

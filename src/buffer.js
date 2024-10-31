@@ -1,4 +1,4 @@
-import { getByteStart, getByteEnd } from './bytes.js'
+import { getByteEnd, getByteStart } from './bytes.js'
 
 // Uses `Buffer.from().toString()` to slice a string byte-wise.
 export const bufferSlice = (input, byteStart, byteEnd) => {
