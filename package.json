@@ -59,7 +59,7 @@
     "@ehmicky/prettier-config": "^1.0.6",
     "spyd": "^0.8.3",
     "string-byte-length": "^3.0.0",
-    "test-each": "^7.0.0"
+    "test-each": "^7.0.1"
   },
   "engines": {
     "node": ">=18.18.0"
